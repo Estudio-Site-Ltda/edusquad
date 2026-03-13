@@ -149,3 +149,43 @@ design_skills:
     description: Apresentações, documentos e páginas web educacionais gerados por IA via Gamma MCP
     icon: "⚡"
     triggers: [gamma, apresentação com ia, módulo visual, página de curso, resumo interativo]
+
+domain_skills:
+  - id: bncc
+    name: BNCC
+    skill_path: skills/bncc/SKILL.md
+    reference: skills/bncc/bncc-reference.md
+    pdf: skills/bncc/BNCC_EI_EF_versaofinal.pdf
+    description: Alinhamento com a Base Nacional Comum Curricular — competências, habilidades e componentes curriculares
+    icon: "🏫"
+    triggers: [bncc, alinhamento curricular, habilidades, competências, componente curricular, educação básica]
+
+  - id: rh-training
+    name: RH Training
+    skill_path: skills/rh-training/SKILL.md
+    description: T&D corporativo — Kirkpatrick 4 níveis, modelo 70-20-10, ANT, ROI de treinamento
+    icon: "💼"
+    triggers: [treinamento corporativo, t&d, capacitação, onboarding, trilha de liderança, kirkpatrick]
+
+  - id: accessibility
+    name: Accessibility
+    skill_path: skills/accessibility/SKILL.md
+    description: Acessibilidade e inclusão — WCAG 2.1, DUA/UDL, Libras, dislexia, neurodiversidade
+    icon: "♿"
+    triggers: [acessibilidade, inclusão, wcag, libras, audiodescrição, dua, diversidade]
+
+  - id: storyboard
+    name: Storyboard
+    skill_path: skills/storyboard/SKILL.md
+    outputs: [storyboard.md, storyboard.html]
+    description: Storyboard frame a frame para produção de vídeos educacionais — planos, narração, B-roll, grafismos
+    icon: "🎬"
+    triggers: [storyboard, planejamento de vídeo, roteiro visual, plano de cenas, frames]
+
+orchestration_skills:
+  - id: squad-templates
+    name: Squad Templates
+    skill_path: skills/squad-templates/SKILL.md
+    description: Templates prontos de squads para os 5 cenários mais comuns — curso online, RH, BNCC, microlearning, trilha
+    icon: "🗂️"
+    templates: [curso-online, treinamento-corporativo, aula-bncc, microlearning, trilha-aprendizagem]
