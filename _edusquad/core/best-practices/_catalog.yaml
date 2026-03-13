@@ -95,3 +95,21 @@ delivery_formats:
     file: learning-trail.md
     description: Sequência de módulos com pré-requisitos e progressão
     icon: "🛤️"
+
+visual_skills:
+  # Skills que geram arquivos HTML interativos standalone
+  - id: flowchart-creator
+    name: Flowchart Creator
+    skill_path: skills/flowchart-creator/SKILL.md
+    output: fluxograma.html
+    description: Fluxograma interativo estilo quadro-negro — sequência didática, ADDIE, trilha adaptativa
+    icon: "🔀"
+    triggers: [fluxograma, flowchart, mapa de processo, sequência didática visual]
+
+  - id: mind-map-creator
+    name: Mind Map Creator
+    skill_path: skills/mind-map-creator/SKILL.md
+    output: mapa-mental.html
+    description: Mapa mental dark mode premium — estrutura de curso, Bloom, BNCC, competências
+    icon: "🗺️"
+    triggers: [mapa mental, mind map, mapa conceitual, visão geral do curso, estrutura de módulo]
