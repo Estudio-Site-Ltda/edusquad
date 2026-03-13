@@ -113,3 +113,39 @@ visual_skills:
     description: Mapa mental dark mode premium — estrutura de curso, Bloom, BNCC, competências
     icon: "🗺️"
     triggers: [mapa mental, mind map, mapa conceitual, visão geral do curso, estrutura de módulo]
+
+assessment_skills:
+  - id: quiz-builder
+    name: Quiz Builder
+    skill_path: skills/quiz-builder/SKILL.md
+    outputs: [quiz.json, quiz.html, quiz-h5p.json]
+    description: Avaliações e quizzes — múltipla escolha, V/F, lacuna, correspondência, ordenação
+    icon: "✅"
+    triggers: [quiz, avaliação, prova, questões, banco de questões, atividade de fixação]
+
+  - id: scorm-builder
+    name: SCORM Builder
+    skill_path: skills/scorm-builder/SKILL.md
+    outputs: [scorm/course.zip]
+    description: Pacote SCORM 1.2 completo com rastreamento, quiz e player HTML — upload direto no LMS
+    icon: "💻"
+    triggers: [scorm, pacote e-learning, módulo para LMS, curso interativo, moodle, hotmart]
+
+design_skills:
+  - id: canva
+    name: Canva
+    skill_path: skills/canva/SKILL.md
+    type: mcp
+    mcp_server: claude_ai_Canva
+    description: Apresentações, infográficos, capas de curso e materiais visuais via Canva MCP
+    icon: "🎨"
+    triggers: [canva, infográfico, capa de curso, design, material visual, apresentação no canva]
+
+  - id: gamma
+    name: Gamma
+    skill_path: skills/gamma/SKILL.md
+    type: mcp
+    mcp_server: claude_ai_Gamma
+    description: Apresentações, documentos e páginas web educacionais gerados por IA via Gamma MCP
+    icon: "⚡"
+    triggers: [gamma, apresentação com ia, módulo visual, página de curso, resumo interativo]
