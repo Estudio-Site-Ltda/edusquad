@@ -1,0 +1,97 @@
+# EduSquad Best Practices Catalog
+# Mapeamento de formatos e frameworks pedagógicos disponíveis
+
+version: "1.0.0"
+updated: "2026-03-13"
+
+pedagogical_frameworks:
+  - id: bloom-taxonomy
+    name: Taxonomia de Bloom
+    file: bloom-taxonomy.md
+    description: Alinha objetivos de aprendizagem aos 6 níveis cognitivos
+    applies_to: [todos os formatos]
+
+  - id: instructional-design
+    name: Design Instrucional (ADDIE)
+    file: instructional-design.md
+    description: Processo estruturado de desenvolvimento de conteúdo educacional
+    applies_to: [curso-online, scorm, apostila, trilha]
+
+  - id: active-learning
+    name: Aprendizagem Ativa
+    file: active-learning.md
+    description: PBL, sala invertida, gamificação e outras metodologias ativas
+    applies_to: [plano-de-aula, quiz, trilha]
+
+  - id: corporate-training
+    name: Treinamento Corporativo
+    file: corporate-training.md
+    description: Kirkpatrick 4 níveis, modelo 70-20-10, T&D corporativo
+    applies_to: [treinamento, apresentacao, quiz]
+
+  - id: accessibility
+    name: Acessibilidade
+    file: accessibility.md
+    description: WCAG, inclusão, diversidade e acessibilidade em materiais educacionais
+    applies_to: [todos os formatos]
+
+delivery_formats:
+  - id: video-script
+    name: Roteiro de Vídeo
+    file: video-script.md
+    description: Script completo com cenas, narração e dicas de produção
+    icon: "🎬"
+
+  - id: slide-design
+    name: Apresentação (Slides)
+    file: slide-design.md
+    description: Estrutura de slides com notas do apresentador e design guide
+    icon: "📊"
+
+  - id: pdf-layout
+    name: PDF Educacional
+    file: pdf-layout.md
+    description: Material de apoio com teoria, exemplos e exercícios
+    icon: "📄"
+
+  - id: apostila
+    name: Apostila Completa
+    file: apostila.md
+    description: Material didático linear com referências e atividades
+    icon: "📚"
+
+  - id: lesson-plan
+    name: Plano de Aula
+    file: lesson-plan.md
+    description: Objetivo, metodologia, recursos, avaliação e temporização
+    icon: "📋"
+
+  - id: quiz-design
+    name: Quiz e Avaliação
+    file: quiz-design.md
+    description: Questões objetivas, dissertativas, rubricas e feedback
+    icon: "✅"
+
+  - id: mind-map
+    name: Mapa Mental
+    file: mind-map.md
+    description: Estrutura visual hierárquica dos conceitos-chave
+    icon: "🗺️"
+
+  - id: flowchart
+    name: Fluxograma
+    file: flowchart.md
+    description: Diagrama de processos ou jornada de aprendizagem
+    icon: "🔀"
+
+  - id: scorm-structure
+    name: SCORM (e-learning)
+    file: scorm-structure.md
+    description: Módulo e-learning interativo compatível com LMS
+    icon: "💻"
+
+  - id: learning-trail
+    name: Trilha de Aprendizagem
+    file: learning-trail.md
+    description: Sequência de módulos com pré-requisitos e progressão
+    icon: "🛤️"

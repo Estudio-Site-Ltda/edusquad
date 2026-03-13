@@ -1,0 +1,13 @@
+{
+  "name": "edusquad",
+  "version": "1.0.0",
+  "description": "Multi-agent orchestration framework for educational content creation",
+  "private": true,
+  "scripts": {
+    "setup": "node scripts/setup.js"
+  },
+  "dependencies": {
+    "@playwright/mcp": "latest"
+  },
+  "devDependencies": {}
+}

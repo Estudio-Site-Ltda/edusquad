@@ -1,0 +1,150 @@
+# =============================================================
+# EduSquad — .gitignore
+# =============================================================
+
+# -------------------------------------------------------------
+# Sessões de Browser (NUNCA commitar — contém cookies/logins)
+# -------------------------------------------------------------
+_edusquad/_browser_profile/
+
+# -------------------------------------------------------------
+# Memória preenchida pelo usuário (dados pessoais/instituição)
+# Descomente as linhas abaixo se não quiser versionar suas
+# configurações locais após rodar o onboarding:
+# -------------------------------------------------------------
+# _edusquad/_memory/institution.md
+# _edusquad/_memory/learner-profile.md
+# _edusquad/_memory/preferences.md
+
+# -------------------------------------------------------------
+# Variáveis de Ambiente (tokens, API keys — NUNCA commitar)
+# -------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.env
+.envrc
+
+# -------------------------------------------------------------
+# Outputs gerados pelos squads (conteúdo produzido — opcional)
+# Descomente se não quiser versionar os outputs:
+# -------------------------------------------------------------
+# squads/*/output/
+
+# -------------------------------------------------------------
+# Arquivos de estado em runtime (temporários)
+# -------------------------------------------------------------
+squads/*/state.json
+squads/*/_memory/memories.md
+
+# -------------------------------------------------------------
+# Investigações e referências (podem ser grandes)
+# -------------------------------------------------------------
+squads/*/_investigations/
+squads/*/_references/
+
+# -------------------------------------------------------------
+# Node.js
+# -------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+package-lock.json
+
+# -------------------------------------------------------------
+# Dashboard (dependências e build)
+# -------------------------------------------------------------
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.vite/
+
+# -------------------------------------------------------------
+# Build e distribuição
+# -------------------------------------------------------------
+dist/
+build/
+out/
+.output/
+
+# -------------------------------------------------------------
+# Logs
+# -------------------------------------------------------------
+*.log
+logs/
+*.log.*
+
+# -------------------------------------------------------------
+# Sistema Operacional
+# -------------------------------------------------------------
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# -------------------------------------------------------------
+# Editores e IDEs
+# -------------------------------------------------------------
+.vscode/settings.json
+.vscode/*.code-workspace
+.idea/
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig
+
+# Manter configs MCP do VS Code
+!.vscode/mcp.json
+
+# -------------------------------------------------------------
+# Certificados e chaves
+# -------------------------------------------------------------
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+
+# -------------------------------------------------------------
+# Playwright
+# -------------------------------------------------------------
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# -------------------------------------------------------------
+# Python (para skills com runtime python)
+# -------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+
+# -------------------------------------------------------------
+# Temporários e caches
+# -------------------------------------------------------------
+.cache/
+.temp/
+.tmp/
+*.tmp
