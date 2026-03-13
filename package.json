@@ -2,12 +2,34 @@
   "name": "edusquad",
   "version": "1.0.0",
   "description": "Multi-agent orchestration framework for educational content creation",
-  "private": true,
+  "private": false,
+  "bin": {
+    "edusquad": "bin/cli.js"
+  },
   "scripts": {
-    "setup": "node scripts/setup.js"
+    "test": "echo \"No tests yet\""
   },
   "dependencies": {
-    "@playwright/mcp": "latest"
+    "degit": "^2.8.4"
   },
-  "devDependencies": {}
+  "keywords": [
+    "education",
+    "ai",
+    "agents",
+    "llm",
+    "instructional-design",
+    "elearning",
+    "scorm",
+    "claude"
+  ],
+  "author": "Estudio Site Ltda",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Estudio-Site-Ltda/edusquad.git"
+  },
+  "homepage": "https://github.com/Estudio-Site-Ltda/edusquad#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
