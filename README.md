@@ -12,7 +12,7 @@ Crie equipes virtuais (squads) de agentes de IA que colaboram para produzir mate
 npx edusquad init
 ```
 
-O comando acima clona o framework no diretório atual, instala as dependências e inicia o onboarding interativo de configuração.
+Clona o framework no diretório atual, instala as dependências e inicia o onboarding interativo de configuração.
 
 ### Atualizar para a versão mais recente
 
@@ -20,7 +20,7 @@ O comando acima clona o framework no diretório atual, instala as dependências 
 npx edusquad update
 ```
 
-Atualiza os arquivos core do framework (`_edusquad/`) preservando seus squads, skills e configurações locais.
+Atualiza os arquivos core do framework preservando seus squads, skills e configurações locais.
 
 ---
 
@@ -37,33 +37,29 @@ Atualiza os arquivos core do framework (`_edusquad/`) preservando seus squads, s
 
 ### IDE compatível (escolha uma)
 
-O EduSquad funciona em qualquer IDE que suporte agentes de IA com MCP:
-
 | IDE | Como usar |
 |-----|-----------|
 | **Claude Code** | `claude` no terminal — recomendado |
-| **Cursor** | Abra a pasta do projeto no Cursor |
+| **Cursor** | Abra a pasta do projeto |
 | **VS Code + Copilot** | Instale a extensão GitHub Copilot |
 | **Windsurf** | Abra a pasta do projeto |
 
 ### Opcionais (por skill)
 
-Instale apenas o que for usar:
+| Ferramenta | Para quê |
+|------------|----------|
+| **FFmpeg** | Montagem e exportação de vídeos |
+| **Python 3.10+** | Skills com runtime Python |
 
-| Ferramenta | Para quê | Instalação |
-|------------|----------|------------|
-| **FFmpeg** | Montagem de vídeos | [ffmpeg.org](https://ffmpeg.org) |
-| **Python 3.10+** | Skills com runtime Python | [python.org](https://python.org) |
+### Variáveis de ambiente
 
-### Variáveis de ambiente (por integração)
-
-Crie um arquivo `.env` na raiz do projeto com as chaves que precisar:
+Crie um `.env` na raiz com as chaves das integrações que for usar:
 
 ```bash
-# Canva (design de apresentações)
+# Design
 CANVA_API_KEY=
 
-# Geração de narração em voz IA
+# Narração em voz IA
 ELEVENLABS_API_KEY=
 
 # Avatar em vídeo
@@ -85,47 +81,83 @@ HOTMART_CLIENT_SECRET=
 IMGBB_API_KEY=
 ```
 
-> Você não precisa preencher todas — apenas as das integrações que for usar.
-
 ---
 
 ## Início Rápido
 
-Após instalar, abra a pasta do projeto no seu IDE e execute:
+Abra a pasta do projeto no seu IDE e execute:
 
 ```
 /edusquad
 ```
 
-Na primeira vez, o onboarding interativo será iniciado automaticamente para configurar o framework com os dados da sua instituição.
+Na primeira vez, o onboarding interativo configura o framework com os dados da sua instituição. Nas próximas vezes, exibe o menu principal.
 
 ### Comandos principais
 
 ```
-/edusquad criar          — Criar um novo squad educacional
-/edusquad rodar <nome>   — Executar um squad
-/edusquad listar         — Ver todos os squads
-/edusquad skills         — Gerenciar skills instaladas
-/edusquad configurar     — Reconfigurar o ambiente
-/edusquad ajuda          — Ver todos os comandos
+/edusquad               — Menu principal
+/edusquad criar         — Criar um novo squad educacional
+/edusquad rodar <nome>  — Executar um squad
+/edusquad listar        — Ver todos os squads
+/edusquad skills        — Gerenciar skills instaladas
+/edusquad configurar    — Reconfigurar o ambiente
+/edusquad ajuda         — Ver todos os comandos
 ```
+
+---
+
+## Skills Incluídas
+
+### Pedagógicas
+
+| Skill | Descrição |
+|-------|-----------|
+| `bloom` | Taxonomia de Bloom — objetivos de aprendizagem por nível cognitivo |
+| `instructional-design` | Modelo ADDIE + princípios de Mayer |
+| `video-script` | Estruturação de roteiros pedagógicos com cenas e narração |
+| `edusquad-skill-creator` | Criação de novas skills personalizadas |
+
+### Formatos Visuais (HTML standalone)
+
+| Skill | Output | Descrição |
+|-------|--------|-----------|
+| `flowchart-creator` | `fluxograma.html` | Fluxograma interativo estilo quadro-negro com revelação progressiva |
+| `mind-map-creator` | `mapa-mental.html` | Mapa mental dark mode com glassmorphism, tooltips e drag/zoom |
+
+### Avaliação
+
+| Skill | Outputs | Descrição |
+|-------|---------|-----------|
+| `quiz-builder` | `quiz.json` `quiz.html` `quiz-h5p.json` `quiz-moodle.csv` `quiz-lms-estudio.csv` | Avaliações com múltipla escolha, V/F, lacuna, correspondência e ordenação. Exportação direta para Moodle e LMS Estúdio |
+
+### E-Learning (LMS)
+
+| Skill | Output | Descrição |
+|-------|--------|-----------|
+| `scorm-builder` | `scorm/course.zip` | Pacote SCORM 1.2 completo com player HTML, rastreamento e quiz. Upload direto em Moodle, Hotmart, Teachable |
+
+### Design (MCP)
+
+| Skill | Integração | Descrição |
+|-------|-----------|-----------|
+| `canva` | Canva MCP | Apresentações, infográficos, capas de curso e materiais visuais |
+| `gamma` | Gamma MCP | Apresentações, documentos e páginas web gerados por IA |
 
 ---
 
 ## Formatos de Conteúdo Suportados
 
-| Formato | Descrição |
-|---------|-----------|
-| Roteiro de Vídeo | Script com cenas, narração e notas de produção |
-| Apresentação | Slides com notas do apresentador e design guide |
-| SCORM | Módulo e-learning para LMS (Moodle, Hotmart, etc.) |
-| PDF Educacional | Material com teoria, exemplos e exercícios |
-| Apostila | Material didático completo com referências |
-| Plano de Aula | Objetivo, metodologia, recursos e avaliação |
-| Quiz / Avaliação | Questões objetivas, dissertativas ou mistas |
-| Mapa Mental | Estrutura visual hierárquica dos conceitos |
-| Fluxograma | Diagrama de processos ou jornada de aprendizagem |
-| Trilha de Aprendizagem | Sequência de módulos com progressão |
+| Formato | Skill(s) |
+|---------|---------|
+| Roteiro de Vídeo | `video-script` |
+| Apresentação / Slides | `canva`, `gamma` |
+| SCORM (e-learning LMS) | `scorm-builder` |
+| Quiz / Avaliação | `quiz-builder` |
+| Mapa Mental interativo | `mind-map-creator` |
+| Fluxograma interativo | `flowchart-creator` |
+| Design educacional | `canva` |
+| Planejamento instrucional | `bloom`, `instructional-design` |
 
 ---
 
@@ -133,37 +165,41 @@ Na primeira vez, o onboarding interativo será iniciado automaticamente para con
 
 ```
 edusquad/
-├── _edusquad/                  # Core do framework (não editar manualmente)
-│   ├── _memory/                # Configurações (preenchidas pelo onboarding)
-│   ├── config/                 # Configuração do Playwright
+├── _edusquad/                   # Core do framework (não editar manualmente)
+│   ├── _memory/                 # Configurações preenchidas pelo onboarding
+│   │   ├── institution.md
+│   │   ├── learner-profile.md
+│   │   └── preferences.md
+│   ├── config/
 │   └── core/
-│       ├── architect.agent.yaml    # Agente Pedagogo (criação de squads)
-│       ├── runner.pipeline.md      # Orquestrador de execução
-│       ├── skills.engine.md        # Motor de skills
-│       ├── prompts/                # Prompts especializados
-│       └── best-practices/         # Biblioteca pedagógica (10+ arquivos)
+│       ├── architect.agent.yaml     # Agente Pedagogo
+│       ├── runner.pipeline.md       # Orquestrador de execução
+│       ├── skills.engine.md         # Motor de skills
+│       ├── prompts/
+│       └── best-practices/          # Biblioteca pedagógica (Bloom, ADDIE, etc.)
 │
-├── skills/                     # Skills instaladas
-│   ├── bloom/                  # Taxonomia de Bloom
-│   ├── instructional-design/   # Modelo ADDIE
-│   ├── video-script/           # Roteiros educacionais
-│   └── edusquad-skill-creator/ # Criar novas skills
+├── skills/                      # Skills instaladas
+│   ├── bloom/
+│   ├── instructional-design/
+│   ├── video-script/
+│   ├── flowchart-creator/
+│   ├── mind-map-creator/
+│   ├── quiz-builder/
+│   ├── scorm-builder/
+│   ├── canva/
+│   ├── gamma/
+│   └── edusquad-skill-creator/
 │
-├── squads/                     # Seus squads ficam aqui
-├── .env                        # Suas chaves de API (não versionado)
-└── .mcp.json                   # Configuração MCP
+├── squads/                      # Seus squads ficam aqui
+│   └── {nome}/
+│       ├── squad.yaml
+│       └── output/
+│           └── {run_id}/        # Versionado por data/hora
+│
+├── bin/                         # CLI (npx edusquad)
+├── .env                         # Suas chaves de API (não versionado)
+└── .mcp.json                    # Configuração MCP
 ```
-
----
-
-## Skills Incluídas
-
-| Skill | Tipo | Descrição |
-|-------|------|-----------|
-| `bloom` | prompt | Taxonomia de Bloom — objetivos de aprendizagem por nível cognitivo |
-| `instructional-design` | prompt | Modelo ADDIE + princípios de Mayer |
-| `video-script` | prompt | Estruturação de roteiros pedagógicos |
-| `edusquad-skill-creator` | prompt | Criação de novas skills personalizadas |
 
 ---
 
@@ -175,4 +211,4 @@ MIT — livre para uso pessoal e comercial.
 
 ## Contribuindo
 
-Pull requests são bem-vindos! Veja as [issues abertas](https://github.com/Estudio-Site-Ltda/edusquad/issues) para ideias de contribuição.
+Pull requests são bem-vindos. Veja as [issues abertas](https://github.com/Estudio-Site-Ltda/edusquad/issues) para ideias de contribuição.
