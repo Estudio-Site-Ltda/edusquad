@@ -97,11 +97,11 @@ try {
     const items = fs.readdirSync(tmpDir);
     for (const item of items) {
       if (item === '.git') continue;
-      execSync(`cp -r "${path.join(tmpDir, item)}" "${TARGET}"`, { stdio: 'ignore' });
+      fs.cpSync(path.join(tmpDir, item), path.join(TARGET, item), { recursive: true });
     }
 
     // Limpar temporário
-    execSync(`rm -rf "${tmpDir}"`, { stdio: 'ignore' });
+    fs.rmSync(tmpDir, { recursive: true, force: true });
   }
 
   success('Framework baixado com sucesso');

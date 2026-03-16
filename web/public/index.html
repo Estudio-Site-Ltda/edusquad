@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduSquad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css">
+</head>
+<body>
+
+  <!-- ── Topbar ────────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <!-- School crest SVG -->
+      <svg class="topbar-crest" viewBox="0 0 32 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 1 L31 8 L31 20 C31 27.5 24 33 16 35 C8 33 1 27.5 1 20 L1 8 Z" fill="none" stroke="#e8a020" stroke-width="1.5"/>
+        <path d="M16 6 L16 29M8 12 L24 12M10 19 L22 19" stroke="#e8a020" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="16" cy="8" r="2" fill="#e8a020" opacity="0.7"/>
+      </svg>
+      <div class="topbar-titles">
+        <span class="topbar-name">EduSquad</span>
+        <span class="topbar-sub">Orquestrador Educacional</span>
+      </div>
+    </div>
+    <div class="topbar-status">
+      <span class="status-dot" id="statusDot"></span>
+      <span class="status-label" id="statusLabel">Conectando...</span>
+    </div>
+  </header>
+
+  <!-- ── Layout principal ──────────────────────────────────── -->
+  <div class="layout">
+
+    <!-- Coluna principal -->
+    <div class="main">
+
+      <!-- Painel do Squad (centro) -->
+      <section class="squad-panel" id="squadPanel">
+
+        <div class="squad-empty" id="squadEmpty">
+          <svg class="empty-illustration" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="20" width="100" height="65" rx="4" stroke="#2a3550" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <path d="M10 32 L110 32" stroke="#2a3550" stroke-width="1"/>
+            <circle cx="22" cy="26" r="3" fill="#2a3550"/>
+            <circle cx="32" cy="26" r="3" fill="#2a3550"/>
+            <circle cx="42" cy="26" r="3" fill="#2a3550"/>
+            <rect x="24" y="44" width="30" height="30" rx="3" fill="#131b2e"/>
+            <rect x="64" y="44" width="30" height="30" rx="3" fill="#131b2e"/>
+            <circle cx="39" cy="56" r="8" fill="#1e2e4a"/>
+            <circle cx="79" cy="56" r="8" fill="#1e2e4a"/>
+            <path d="M35 68 Q39 72 43 68" stroke="#2a3550" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M75 68 Q79 72 83 68" stroke="#2a3550" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          </svg>
+          <p class="squad-empty-text">Nenhum squad em execução</p>
+          <p class="squad-empty-hint">Use o chat abaixo para criar ou executar um squad</p>
+        </div>
+
+        <div class="squad-active hidden" id="squadActive">
+          <div class="squad-header">
+            <h2 class="squad-name" id="squadName">—</h2>
+            <div class="squad-progress">
+              <span class="squad-step-label" id="squadStepLabel"></span>
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+              <span class="squad-step-counter" id="squadStepCounter"></span>
+            </div>
+          </div>
+          <div class="agents-grid" id="agentsGrid"></div>
+        </div>
+
+      </section>
+
+      <!-- Painel de Chat (inferior) -->
+      <section class="chat-panel">
+        <div class="chat-panel-header">
+          <span class="chat-panel-label">Terminal</span>
+          <span class="chat-panel-hint">Claude Code</span>
+        </div>
+        <div class="chat-output" id="chatOutput">
+          <div id="terminal"></div>
+        </div>
+        <div class="cmd-chips" id="cmdChips">
+          <button class="cmd-chip" data-cmd="/edusquad"        data-send="true"  title="Abre o menu principal">menu</button>
+          <button class="cmd-chip" data-cmd="/edusquad criar"  data-send="true"  title="Criar um novo squad">criar squad</button>
+          <button class="cmd-chip" data-cmd="/edusquad listar" data-send="true"  title="Listar squads existentes">listar squads</button>
+          <button class="cmd-chip" data-cmd="/edusquad rodar " data-send="false" title="Executa um squad — complete o nome">rodar squad…</button>
+          <button class="cmd-chip" data-cmd="/edusquad skills" data-send="true"  title="Gerenciar skills instaladas">skills</button>
+          <button class="cmd-chip" data-cmd="/edusquad ajuda"  data-send="true"  title="Ver todos os comandos">ajuda</button>
+        </div>
+        <div class="chat-input-row">
+          <input
+            class="chat-input"
+            id="chatInput"
+            type="text"
+            placeholder="Enviar mensagem ao Claude Code..."
+            autocomplete="off"
+          />
+          <button class="chat-send" id="chatSend">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8 L14 2 L10 8 L14 14 Z" fill="currentColor"/></svg>
+            Enviar
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h3 class="sidebar-title">Projetos</h3>
+        <span class="sidebar-badge" id="projectCount">0</span>
+      </div>
+      <div class="sidebar-list" id="projectList">
+        <p class="sidebar-empty">Nenhum projeto ainda.</p>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/lib/xterm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/lib/addon-fit.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

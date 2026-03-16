@@ -65,7 +65,7 @@ const tmpDir = path.join(TARGET, '.tmp_edusquad_update');
 
 try {
   if (fs.existsSync(tmpDir)) {
-    execSync(`rm -rf "${tmpDir}"`, { stdio: 'ignore' });
+    fs.rmSync(tmpDir, { recursive: true, force: true });
   }
 
   try {
@@ -91,8 +91,8 @@ for (const dir of CORE_DIRS) {
   const src = path.join(tmpDir, dir);
   const dst = path.join(TARGET, dir);
   if (fs.existsSync(src)) {
-    execSync(`rm -rf "${dst}"`, { stdio: 'ignore' });
-    execSync(`cp -r "${src}" "${dst}"`, { stdio: 'ignore' });
+    if (fs.existsSync(dst)) fs.rmSync(dst, { recursive: true, force: true });
+    fs.cpSync(src, dst, { recursive: true });
     log(`  → ${dir}`);
     updated++;
   }
@@ -113,7 +113,7 @@ success(`${updated} itens atualizados`);
 console.log('');
 
 // 4. Limpar temporário
-execSync(`rm -rf "${tmpDir}"`, { stdio: 'ignore' });
+fs.rmSync(tmpDir, { recursive: true, force: true });
 
 // 5. Mensagem final
 console.log('  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');

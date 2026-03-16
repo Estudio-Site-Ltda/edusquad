@@ -1,0 +1,17 @@
+{
+  "name": "edusquad-web",
+  "version": "1.0.0",
+  "description": "Interface web local para o EduSquad",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "node-pty": "^1.0.0",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

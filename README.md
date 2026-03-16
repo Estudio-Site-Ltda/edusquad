@@ -22,6 +22,14 @@ npx edusquad update
 
 Atualiza os arquivos core do framework preservando seus squads, skills e configurações locais.
 
+### Interface Web (opcional)
+
+```bash
+npx edusquad web
+```
+
+Abre uma interface visual no browser (`localhost:3000`) para usuários que preferem não usar o terminal. Veja a seção [Interface Web](#interface-web) para mais detalhes.
+
 ---
 
 ## Pré-requisitos
@@ -83,6 +91,88 @@ IMGBB_API_KEY=
 
 ---
 
+## Interface Web
+
+Uma interface visual local para usar o EduSquad sem precisar do terminal — ideal para usuários não-técnicos.
+
+### Como iniciar
+
+```bash
+npx edusquad web
+# ou, dentro do projeto:
+npm run web
+```
+
+O servidor inicia em `http://localhost:3000` e abre o browser automaticamente. Se a porta 3000 estiver em uso, tenta automaticamente as próximas disponíveis (3001, 3002…).
+
+### Layout
+
+```
+┌──────────────────────────────────────────┬─────────────┐
+│           Squad em execução              │             │
+│  Avatares ilustrados dos agentes,        │  Projetos   │
+│  animações, barra de progresso           │  criados    │
+├──────────────────────────────────────────│  e outputs  │
+│  [menu] [criar squad] [listar] [rodar…]  │  gerados    │
+│  Terminal com cores ANSI (Claude Code)   │             │
+└──────────────────────────────────────────┴─────────────┘
+```
+
+| Área | Função |
+|------|--------|
+| **Centro** | Visualização dos agentes com avatares ilustrados por função, animações em tempo real, barra de progresso e label do step atual. |
+| **Terminal (inferior)** | Terminal completo embutido no browser com suporte a cores ANSI. Inclui botões de comando rápido clicáveis. |
+| **Sidebar (direita)** | Histórico de todos os projetos e execuções, com arquivos gerados visualizáveis com um clique. Textura de papel de caderno. |
+
+### Avatares dos agentes
+
+Cada agente recebe um avatar SVG ilustrado automaticamente com base no seu papel:
+
+| Tipo detectado | Palavras-chave no ID | Visual |
+|----------------|---------------------|--------|
+| Professor | `pedagog`, `teacher`, `professor` | Mortarboard, óculos, gravata |
+| Roteirista | `roteirist`, `writer`, `redator` | Boina, lápis |
+| Revisor | `revisor`, `review`, `editor` | Óculos redondos, lupa |
+| Designer | `design`, `visual`, `artis` | Cabelo colorido, paleta |
+| Pesquisador | `pesquis`, `research`, `analista` | Óculos de arame, livros |
+| Genérico | qualquer outro | Avatar neutro com acentos teal |
+
+### Comandos rápidos
+
+A interface inclui botões clicáveis acima do terminal com os principais comandos EduSquad:
+
+| Botão | Ação |
+|-------|------|
+| `menu` | Envia `/edusquad` |
+| `criar squad` | Envia `/edusquad criar` |
+| `listar squads` | Envia `/edusquad listar` |
+| `rodar squad…` | Preenche `/edusquad rodar ` no input para completar com o nome |
+| `skills` | Envia `/edusquad skills` |
+| `ajuda` | Envia `/edusquad ajuda` |
+
+### Animações
+
+- **Agente ativo** — anel giratório âmbar + pulse no card
+- **Handoff** — flash verde no receptor + toast flutuante com `de → para`
+- **Concluído** — anel verde permanente no avatar
+
+### Pré-requisitos adicionais
+
+A interface web usa `node-pty` para comunicação com o Claude Code. Na maioria dos sistemas o pacote já vem com binários pré-compilados. Se encontrar erro de compilação no Windows, instale as ferramentas de build:
+
+```bash
+npm install --global windows-build-tools
+```
+
+### Modos de uso
+
+O terminal e a interface web são **independentes e intercambiáveis**. Você pode:
+- Usar apenas o terminal (comportamento original, nada muda)
+- Usar apenas a interface web
+- Alternar entre os dois a qualquer momento
+
+---
+
 ## Início Rápido
 
 Abra a pasta do projeto no seu IDE e execute:
@@ -103,6 +193,14 @@ Na primeira vez, o onboarding interativo configura o framework com os dados da s
 /edusquad skills        — Gerenciar skills instaladas
 /edusquad configurar    — Reconfigurar o ambiente
 /edusquad ajuda         — Ver todos os comandos
+```
+
+### Comandos CLI (terminal)
+
+```bash
+npx edusquad init    # Instalar o framework
+npx edusquad update  # Atualizar o framework
+npx edusquad web     # Abrir a interface web
 ```
 
 ---
@@ -195,6 +293,11 @@ edusquad/
 │       ├── squad.yaml
 │       └── output/
 │           └── {run_id}/        # Versionado por data/hora
+│
+├── web/                         # Interface web local
+│   ├── server.js                # Servidor HTTP + WebSocket + PTY
+│   ├── public/                  # Frontend (HTML, CSS, JS)
+│   └── node_modules/            # Dependências da interface web
 │
 ├── bin/                         # CLI (npx edusquad)
 ├── .env                         # Suas chaves de API (não versionado)
