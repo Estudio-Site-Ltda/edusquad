@@ -15,12 +15,15 @@ const CORE_DIRS = [
   '.agents/skills/edusquad',
   '.agent/workflows',
   'skills',
+  'web',
 ];
 
 // Arquivos raiz que serão atualizados
 const CORE_FILES = [
   'CLAUDE.md',
   'AGENTS.md',
+  'README.md',
+  'package.json',
   'bin/cli.js',
   'bin/commands/init.js',
   'bin/commands/update.js',
