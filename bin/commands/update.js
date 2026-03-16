@@ -14,10 +14,7 @@ const CORE_DIRS = [
   '.claude/skills/edusquad',
   '.agents/skills/edusquad',
   '.agent/workflows',
-  'skills/bloom',
-  'skills/instructional-design',
-  'skills/video-script',
-  'skills/edusquad-skill-creator',
+  'skills',
 ];
 
 // Arquivos raiz que serão atualizados
