@@ -9,9 +9,9 @@ function connect() {
   ws.onopen = () => {
     setStatus('connected', 'Conectado');
     setInputEnabled(true);
-    // Sincroniza tamanho do terminal com o PTY
     const { cols, rows } = term;
     send('resize', { cols, rows });
+    term.focus();
   };
 
   ws.onclose = () => {
@@ -102,6 +102,7 @@ window.addEventListener('resize', () => fitAddon.fit());
 term.onResize(({ cols, rows }) => {
   send('resize', { cols, rows });
 });
+
 
 function handleOutput(text) {
   term.write(text);
@@ -577,16 +578,16 @@ function fileIcon(name) {
   return '📎';
 }
 
-// ── File Viewer ───────────────────────────────────────────────────────────────
+// ── File Viewer / Editor ──────────────────────────────────────────────────────
 
 function openFile(encodedPath, name) {
   fetch(`/api/file?path=${encodedPath}`)
     .then((r) => r.text())
-    .then((content) => showFileModal(name, content))
-    .catch(() => showFileModal(name, '(erro ao carregar arquivo)'));
+    .then((content) => showFileModal(encodedPath, name, content))
+    .catch(() => showFileModal(encodedPath, name, '(erro ao carregar arquivo)'));
 }
 
-function showFileModal(name, content) {
+function showFileModal(encodedPath, name, content) {
   let modal = document.getElementById('fileModal');
   if (!modal) {
     modal = document.createElement('div');
@@ -596,43 +597,119 @@ function showFileModal(name, content) {
       <div class="file-modal-box">
         <div class="file-modal-header">
           <span class="file-modal-name" id="fileModalName"></span>
-          <button class="file-modal-close" onclick="closeFileModal()">✕</button>
+          <div class="file-modal-actions">
+            <button class="file-modal-btn edit"          id="fileModalEdit"     onclick="startEdit()">Editar</button>
+            <button class="file-modal-btn save   hidden" id="fileModalSave"     onclick="saveFile()">Salvar</button>
+            <button class="file-modal-btn cancel hidden" id="fileModalCancel"   onclick="cancelEdit()">Cancelar</button>
+            <button class="file-modal-btn icon"          id="fileModalDownload" onclick="downloadFile()" title="Baixar arquivo">⬇</button>
+            <button class="file-modal-btn icon"          id="fileModalShare"    onclick="shareFile()"    title="Copiar conteúdo">⎘</button>
+            <button class="file-modal-close" onclick="closeFileModal()">✕</button>
+          </div>
         </div>
         <pre class="file-modal-content" id="fileModalContent"></pre>
+        <textarea class="file-modal-textarea hidden" id="fileModalTextarea"></textarea>
       </div>`;
     modal.addEventListener('click', (e) => { if (e.target === modal) closeFileModal(); });
     document.body.appendChild(modal);
   }
+
+  modal.dataset.path = encodedPath;
   document.getElementById('fileModalName').textContent    = name;
   document.getElementById('fileModalContent').textContent = content;
+  setViewMode(content);
   modal.classList.add('open');
+}
+
+function setViewMode(content) {
+  if (content !== undefined)
+    document.getElementById('fileModalContent').textContent = content;
+  document.getElementById('fileModalContent').classList.remove('hidden');
+  document.getElementById('fileModalTextarea').classList.add('hidden');
+  document.getElementById('fileModalEdit').classList.remove('hidden');
+  document.getElementById('fileModalSave').classList.add('hidden');
+  document.getElementById('fileModalCancel').classList.add('hidden');
+}
+
+function startEdit() {
+  const text = document.getElementById('fileModalContent').textContent;
+  const ta   = document.getElementById('fileModalTextarea');
+  ta.value   = text;
+  document.getElementById('fileModalContent').classList.add('hidden');
+  ta.classList.remove('hidden');
+  ta.focus();
+  document.getElementById('fileModalEdit').classList.add('hidden');
+  document.getElementById('fileModalSave').classList.remove('hidden');
+  document.getElementById('fileModalCancel').classList.remove('hidden');
+}
+
+function cancelEdit() {
+  setViewMode();
+}
+
+function saveFile() {
+  const modal   = document.getElementById('fileModal');
+  const content = document.getElementById('fileModalTextarea').value;
+  const saveBtn = document.getElementById('fileModalSave');
+
+  saveBtn.textContent = 'Salvando…';
+  saveBtn.disabled    = true;
+
+  fetch(`/api/file?path=${modal.dataset.path}`, {
+    method:  'POST',
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    body:    content,
+  })
+    .then((r) => {
+      if (!r.ok) throw new Error();
+      setViewMode(content);
+    })
+    .catch(() => {
+      saveBtn.textContent = 'Erro ao salvar';
+      setTimeout(() => { saveBtn.textContent = 'Salvar'; saveBtn.disabled = false; }, 2500);
+    })
+    .finally(() => {
+      saveBtn.textContent = 'Salvar';
+      saveBtn.disabled    = false;
+    });
+}
+
+function downloadFile() {
+  const name    = document.getElementById('fileModalName').textContent;
+  const content = document.getElementById('fileModalTextarea').classList.contains('hidden')
+    ? document.getElementById('fileModalContent').textContent
+    : document.getElementById('fileModalTextarea').value;
+  const blob = new Blob([content], { type: 'text/plain; charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = Object.assign(document.createElement('a'), { href: url, download: name });
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function shareFile() {
+  const content = document.getElementById('fileModalTextarea').classList.contains('hidden')
+    ? document.getElementById('fileModalContent').textContent
+    : document.getElementById('fileModalTextarea').value;
+  const btn = document.getElementById('fileModalShare');
+  navigator.clipboard.writeText(content).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓';
+    setTimeout(() => { btn.textContent = orig; }, 1800);
+  });
 }
 
 function closeFileModal() {
   document.getElementById('fileModal')?.classList.remove('open');
 }
 
-// ── Chat Input ───────────────────────────────────────────────────────────────
-
-const $chatInput = document.getElementById('chatInput');
-const $chatSend  = document.getElementById('chatSend');
+// ── Terminal Input ────────────────────────────────────────────────────────────
 
 function setInputEnabled(enabled) {
-  $chatInput.disabled = !enabled;
-  $chatSend.disabled  = !enabled;
   document.querySelectorAll('.cmd-chip').forEach((c) => { c.disabled = !enabled; });
 }
 
-function submitInput() {
-  const text = $chatInput.value;
-  if (!text.trim()) return;
-  send('input', { text: text + '\n' });
-  $chatInput.value = '';
-}
-
-$chatSend.addEventListener('click', submitInput);
-$chatInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') submitInput();
+// Encaminha todo input do teclado (incluindo setas, Esc, Enter) direto ao PTY
+term.onData((data) => {
+  send('input', { text: data });
 });
 
 // ── Command chips ─────────────────────────────────────────────────────────────
@@ -655,7 +732,57 @@ document.getElementById('cmdChips').addEventListener('click', (e) => {
   }
 });
 
+// ── Design System ─────────────────────────────────────────────────────────────
+
+function uploadDesignSystem(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    fetch('/api/design-system', {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+      body: e.target.result,
+    })
+      .then((r) => { if (!r.ok) throw new Error(); setDsStatus(true, file.name); })
+      .catch(() => setDsStatus(false));
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function viewDesignSystem() {
+  fetch('/api/design-system')
+    .then((r) => r.text())
+    .then((content) => showFileModal('', 'design-system.md', content));
+}
+
+function removeDesignSystem() {
+  fetch('/api/design-system', {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    body: '',
+  }).then(() => setDsStatus(false));
+}
+
+function setDsStatus(loaded, name) {
+  const $status = document.getElementById('dsStatus');
+  const $view   = document.getElementById('dsViewBtn');
+  const $remove = document.getElementById('dsRemoveBtn');
+  $status.textContent = loaded ? (name || 'carregado') : 'não carregado';
+  $status.className   = 'ds-status ' + (loaded ? 'loaded' : '');
+  $view.classList.toggle('hidden', !loaded);
+  $remove.classList.toggle('hidden', !loaded);
+}
+
+function checkDesignSystem() {
+  fetch('/api/design-system')
+    .then((r) => { setDsStatus(r.ok && r.status !== 404); })
+    .catch(() => setDsStatus(false));
+}
+
 // ── Init ─────────────────────────────────────────────────────────────────────
 
 setInputEnabled(false);
 connect();
+checkDesignSystem();

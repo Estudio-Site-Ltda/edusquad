@@ -1,5 +1,5 @@
 ---
-name: SCORM Builder
+name: scorm-builder
 description: Gera um pacote SCORM 1.2 completo e funcional — pronto para upload em qualquer LMS (Moodle, Hotmart, Teachable, Canvas LMS). Inclui conteúdo HTML, imsmanifest.xml, rastreamento de progresso e script de empacotamento. Use quando o usuário pedir "SCORM", "pacote e-learning", "módulo para LMS", "curso interativo para Moodle/Hotmart" ou qualquer conteúdo que precise ser importado em uma plataforma EAD.
 type: hybrid
 version: 1.0.0
@@ -9,6 +9,31 @@ categories: [conteudo, lms, scorm, elearning, interativo]
 # SCORM Builder
 
 Esta skill gera um **pacote SCORM 1.2** completo — estrutura de arquivos, conteúdo HTML, manifesto XML, rastreamento de progresso via SCORM API e script Node.js para zipar e entregar o `.zip` pronto para upload no LMS.
+
+---
+
+## ANTES DE GERAR — Leia o Design System
+
+**Obrigatório:** leia `DESIGN.md` na raiz do projeto antes de gerar qualquer arquivo.
+
+Extraia e aplique os seguintes valores no `style.css` gerado:
+
+| Variável CSS | Campo em DESIGN.md |
+|---|---|
+| `--primary` | Cor Primária |
+| `--primary-dark` | Cor Primária (versão escurecida em ~15%) |
+| `--bg` | Cor de Fundo |
+| `--surface` | Branco ou cor de superfície do card |
+| `--text` | Cor de Texto |
+| `--text-dim` | Cor de Texto Suave |
+| `--border` | Tom neutro derivado do fundo |
+| `--success` | Cor Sucesso |
+| `--error` | Cor Erro |
+| `font-family` (body) | Fonte Principal + fallback |
+
+Se `DESIGN.md` não existir ou algum campo estiver vazio, use os valores padrão já definidos no template do `style.css` abaixo.
+
+---
 
 ---
 
@@ -419,19 +444,20 @@ archive.finalize();
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --primary: #4f46e5;
-  --primary-dark: #3730a3;
-  --text: #1e293b;
-  --text-dim: #64748b;
-  --border: #e2e8f0;
-  --success: #10b981;
-  --error: #f43f5e;
+  /* Substituir pelos valores de DESIGN.md — padrões abaixo como fallback */
+  --bg:           #f8fafc;  /* DESIGN.md → Cor de Fundo */
+  --surface:      #ffffff;  /* DESIGN.md → superfície de card */
+  --primary:      #4f46e5;  /* DESIGN.md → Cor Primária */
+  --primary-dark: #3730a3;  /* DESIGN.md → Primária escurecida */
+  --text:         #1e293b;  /* DESIGN.md → Cor de Texto */
+  --text-dim:     #64748b;  /* DESIGN.md → Cor de Texto Suave */
+  --border:       #e2e8f0;  /* DESIGN.md → tom neutro */
+  --success:      #10b981;  /* DESIGN.md → Cor Sucesso */
+  --error:        #f43f5e;  /* DESIGN.md → Cor Erro */
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif; /* DESIGN.md → Fonte Principal + fallback */
   background: var(--bg);
   height: 100vh;
   display: flex;
@@ -556,6 +582,8 @@ squads/{nome}/output/{run_id}/{step}/
 
 ## Checklist para Novo SCORM
 
+- [ ] Ler `DESIGN.md` e extrair cores, fonte e fallback
+- [ ] Aplicar valores do design system nas variáveis CSS do `style.css`
 - [ ] Definir metadados: `id`, `title`, `language`, `duration`, `passingScore`
 - [ ] Criar array `slides` com todos os slides de conteúdo
 - [ ] Incluir ao menos 1 slide de quiz se houver avaliação

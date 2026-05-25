@@ -6,7 +6,9 @@ const ptyManager = require('./pty-manager');
 const stateWatcher = require('./state-watcher');
 
 const PORT = process.env.PORT || 3000;
-const PUBLIC_DIR = path.join(__dirname, 'public');
+const PUBLIC_DIR   = path.join(__dirname, 'public');
+const MEMORY_DIR   = path.join(__dirname, '..', '_edusquad', '_memory');
+const DS_FILE      = path.join(MEMORY_DIR, 'design-system.md');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -27,20 +29,62 @@ const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://localhost`);
 
   // ── API: leitura de arquivo de output ──────────────────────────────────
-  if (url.pathname === '/api/file') {
+  if (url.pathname === '/api/file' && req.method === 'GET') {
     const rel      = url.searchParams.get('path') || '';
     const filePath = path.resolve(SQUADS_DIR, rel);
 
-    // Restringe ao diretório squads/
     if (!filePath.startsWith(SQUADS_DIR)) {
-      res.writeHead(403);
-      return res.end('Forbidden');
+      res.writeHead(403); return res.end('Forbidden');
     }
 
     fs.readFile(filePath, 'utf8', (err, data) => {
       if (err) { res.writeHead(404); return res.end('Not found'); }
       res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end(data);
+    });
+    return;
+  }
+
+  // ── API: gravação de arquivo de output ─────────────────────────────────
+  if (url.pathname === '/api/file' && req.method === 'POST') {
+    const rel      = url.searchParams.get('path') || '';
+    const filePath = path.resolve(SQUADS_DIR, rel);
+
+    if (!filePath.startsWith(SQUADS_DIR)) {
+      res.writeHead(403); return res.end('Forbidden');
+    }
+
+    let body = '';
+    req.on('data', (chunk) => { body += chunk; });
+    req.on('end', () => {
+      fs.writeFile(filePath, body, 'utf8', (err) => {
+        if (err) { res.writeHead(500); return res.end('Write error'); }
+        res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('ok');
+      });
+    });
+    return;
+  }
+
+  // ── API: design system — leitura ──────────────────────────────────────
+  if (url.pathname === '/api/design-system' && req.method === 'GET') {
+    fs.readFile(DS_FILE, 'utf8', (err, data) => {
+      if (err) { res.writeHead(404); return res.end(''); }
+      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end(data);
+    });
+    return;
+  }
+
+  // ── API: design system — gravação ──────────────────────────────────────
+  if (url.pathname === '/api/design-system' && req.method === 'POST') {
+    let body = '';
+    req.on('data', (chunk) => { body += chunk; });
+    req.on('end', () => {
+      fs.writeFile(DS_FILE, body, 'utf8', (err) => {
+        if (err) { res.writeHead(500); return res.end('Write error'); }
+        res.writeHead(200); res.end('ok');
+      });
     });
     return;
   }

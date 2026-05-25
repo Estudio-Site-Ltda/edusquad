@@ -9,12 +9,11 @@ _edusquad/_browser_profile/
 
 # -------------------------------------------------------------
 # Memória preenchida pelo usuário (dados pessoais/instituição)
-# Descomente as linhas abaixo se não quiser versionar suas
-# configurações locais após rodar o onboarding:
 # -------------------------------------------------------------
-# _edusquad/_memory/institution.md
-# _edusquad/_memory/learner-profile.md
-# _edusquad/_memory/preferences.md
+_edusquad/_memory/institution.md
+_edusquad/_memory/learner-profile.md
+_edusquad/_memory/preferences.md
+_edusquad/_memory/design-system.md
 
 # -------------------------------------------------------------
 # Variáveis de Ambiente (tokens, API keys — NUNCA commitar)
@@ -26,10 +25,9 @@ _edusquad/_browser_profile/
 .envrc
 
 # -------------------------------------------------------------
-# Outputs gerados pelos squads (conteúdo produzido — opcional)
-# Descomente se não quiser versionar os outputs:
+# Squads criados pelo usuário (conteúdo gerado localmente)
 # -------------------------------------------------------------
-# squads/*/output/
+squads/
 
 # -------------------------------------------------------------
 # Arquivos de estado em runtime (temporários)
@@ -99,6 +97,11 @@ $RECYCLE.BIN/
 *~
 
 # -------------------------------------------------------------
+# Claude Code (configurações locais da sessão)
+# -------------------------------------------------------------
+.claude/settings.local.json
+
+# -------------------------------------------------------------
 # Editores e IDEs
 # -------------------------------------------------------------
 .vscode/settings.json
@@ -140,6 +143,23 @@ __pycache__/
 venv/
 env/
 *.egg-info/
+
+# -------------------------------------------------------------
+# Assets — arquivos pesados (não versionar, referenciar externamente)
+# -------------------------------------------------------------
+assets/videos/*.mp4
+assets/videos/*.mov
+assets/videos/*.avi
+assets/videos/*.mkv
+assets/videos/*.webm
+assets/audio/*.mp3
+assets/audio/*.wav
+assets/audio/*.ogg
+assets/audio/*.m4a
+assets/images/*.psd
+assets/images/*.ai
+# Manter: fontes, ícones, branding, templates e .gitkeep
+!assets/**/.gitkeep
 
 # -------------------------------------------------------------
 # Temporários e caches

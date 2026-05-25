@@ -124,6 +124,7 @@ body > * { position: relative; z-index: 1; }
 
 /* Active squad */
 .squad-active { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+.hidden { display: none !important; }
 .squad-active.hidden { display: none; }
 .squad-empty.hidden  { display: none; }
 
@@ -420,6 +421,29 @@ body > * { position: relative; z-index: 1; }
 .file-icon { flex-shrink: 0; font-size: 11px; }
 .file-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+/* ── Design System ──────────────────────────────────────────────────────── */
+.ds-section {
+  border-top: 1px solid var(--border);
+  padding: 12px 14px 14px;
+  margin-top: auto;
+}
+.ds-header  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.ds-title   { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); }
+.ds-status  { font-size: 10px; color: var(--text-muted); }
+.ds-status.loaded { color: var(--green, #3ecf8e); }
+.ds-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.ds-btn {
+  font-size: 11px; font-weight: 600; padding: 4px 10px; cursor: pointer;
+  border-radius: var(--radius-sm); border: 1px solid var(--border2);
+  background: var(--surface2); color: var(--text-soft);
+  transition: background .15s; white-space: nowrap;
+}
+.ds-btn:hover  { background: var(--border2); color: var(--text); }
+.ds-btn.view   { background: none; border-color: transparent; color: var(--text-muted); }
+.ds-btn.view:hover { color: var(--text); background: var(--surface2); }
+.ds-btn.remove { background: none; border-color: transparent; color: var(--text-muted); }
+.ds-btn.remove:hover { color: #f87171; }
+
 /* ── File Modal ─────────────────────────────────────────────────────────── */
 .file-modal {
   position: fixed; inset: 0; background: rgba(4,7,14,0.85);
@@ -439,6 +463,21 @@ body > * { position: relative; z-index: 1; }
   padding: 11px 16px; border-bottom: 1px solid var(--border);
 }
 .file-modal-name  { font-size: 12px; font-weight: 600; font-family: var(--font-mono); color: var(--text-soft); }
+.file-modal-actions { display: flex; align-items: center; gap: 6px; }
+.file-modal-btn {
+  font-size: 11px; font-weight: 600; padding: 4px 11px;
+  border-radius: var(--radius-sm); border: 1px solid var(--border2);
+  cursor: pointer; transition: background .15s, color .15s;
+}
+.file-modal-btn.edit   { background: var(--surface2); color: var(--text-soft); }
+.file-modal-btn.edit:hover { background: var(--border2); color: var(--text); }
+.file-modal-btn.save   { background: var(--accent); color: #fff; border-color: var(--accent); }
+.file-modal-btn.save:hover { opacity: .85; }
+.file-modal-btn.cancel { background: none; color: var(--text-muted); border-color: transparent; }
+.file-modal-btn.cancel:hover { color: var(--text); }
+.file-modal-btn.icon   { background: none; color: var(--text-muted); border-color: transparent; font-size: 13px; padding: 4px 8px; }
+.file-modal-btn.icon:hover { background: var(--surface2); color: var(--text); }
+.file-modal-btn:disabled { opacity: .5; cursor: not-allowed; }
 .file-modal-close {
   background: none; border: none; color: var(--text-muted);
   font-size: 14px; cursor: pointer; padding: 3px 7px;
@@ -449,6 +488,12 @@ body > * { position: relative; z-index: 1; }
   flex: 1; overflow: auto; padding: 16px;
   font-family: var(--font-mono); font-size: 11px; line-height: 1.8;
   white-space: pre-wrap; word-break: break-word; color: var(--text-soft);
+}
+.file-modal-textarea {
+  flex: 1; resize: none; padding: 16px;
+  font-family: var(--font-mono); font-size: 11px; line-height: 1.8;
+  background: var(--surface); color: var(--text); border: none; outline: none;
+  border-top: 1px solid var(--border); min-height: 300px;
 }
 
 /* ── Handoff animations ─────────────────────────────────────────────────── */

@@ -56,7 +56,7 @@
             <path d="M75 68 Q79 72 83 68" stroke="#2a3550" stroke-width="1.2" stroke-linecap="round" fill="none"/>
           </svg>
           <p class="squad-empty-text">Nenhum squad em execução</p>
-          <p class="squad-empty-hint">Use o chat abaixo para criar ou executar um squad</p>
+          <p class="squad-empty-hint">Use os atalhos abaixo ou digite no terminal para criar um squad</p>
         </div>
 
         <div class="squad-active hidden" id="squadActive">
@@ -85,25 +85,12 @@
           <div id="terminal"></div>
         </div>
         <div class="cmd-chips" id="cmdChips">
-          <button class="cmd-chip" data-cmd="/edusquad"        data-send="true"  title="Abre o menu principal">menu</button>
-          <button class="cmd-chip" data-cmd="/edusquad criar"  data-send="true"  title="Criar um novo squad">criar squad</button>
-          <button class="cmd-chip" data-cmd="/edusquad listar" data-send="true"  title="Listar squads existentes">listar squads</button>
-          <button class="cmd-chip" data-cmd="/edusquad rodar " data-send="false" title="Executa um squad — complete o nome">rodar squad…</button>
-          <button class="cmd-chip" data-cmd="/edusquad skills" data-send="true"  title="Gerenciar skills instaladas">skills</button>
+          <button class="cmd-chip" data-cmd="/edusquad"        data-send="true"  title="Abre o menu principal">início</button>
+          <button class="cmd-chip" data-cmd="/edusquad criar"  data-send="true"  title="Criar um novo projeto">novo projeto</button>
+          <button class="cmd-chip" data-cmd="/edusquad listar" data-send="true"  title="Ver projetos existentes">meus projetos</button>
+          <button class="cmd-chip" data-cmd="/edusquad rodar " data-send="false" title="Executa um projeto — complete o nome">executar…</button>
+          <button class="cmd-chip" data-cmd="/edusquad skills" data-send="true"  title="Gerenciar habilidades instaladas">habilidades</button>
           <button class="cmd-chip" data-cmd="/edusquad ajuda"  data-send="true"  title="Ver todos os comandos">ajuda</button>
-        </div>
-        <div class="chat-input-row">
-          <input
-            class="chat-input"
-            id="chatInput"
-            type="text"
-            placeholder="Enviar mensagem ao Claude Code..."
-            autocomplete="off"
-          />
-          <button class="chat-send" id="chatSend">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8 L14 2 L10 8 L14 14 Z" fill="currentColor"/></svg>
-            Enviar
-          </button>
         </div>
       </section>
 
@@ -117,6 +104,22 @@
       </div>
       <div class="sidebar-list" id="projectList">
         <p class="sidebar-empty">Nenhum projeto ainda.</p>
+      </div>
+
+      <!-- Design System -->
+      <div class="ds-section">
+        <div class="ds-header">
+          <span class="ds-title">Design System</span>
+          <span class="ds-status" id="dsStatus">não carregado</span>
+        </div>
+        <div class="ds-actions">
+          <label class="ds-btn upload" title="Carregar arquivo .md">
+            Carregar .md
+            <input type="file" id="dsFileInput" accept=".md,text/markdown" style="display:none" onchange="uploadDesignSystem(this)">
+          </label>
+          <button class="ds-btn view hidden" id="dsViewBtn" onclick="viewDesignSystem()">Ver</button>
+          <button class="ds-btn remove hidden" id="dsRemoveBtn" onclick="removeDesignSystem()">Remover</button>
+        </div>
       </div>
     </aside>
 

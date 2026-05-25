@@ -173,6 +173,45 @@ O terminal e a interface web são **independentes e intercambiáveis**. Você po
 
 ---
 
+## App Desktop (em desenvolvimento)
+
+Instalador nativo para Windows e macOS que empacota o servidor Node.js e a interface web em um aplicativo de duplo clique — sem terminal, sem configuração manual.
+
+### O que será feito
+
+O app usa **Electron** para envolver o servidor Node.js existente (`web/server.js`) e servir a interface web (`web/public/`) dentro de uma janela nativa. O Claude Code continua sendo executado via PTY internamente, exatamente como na versão web, mas o usuário vê apenas uma janela de aplicativo.
+
+### Checklist de implementação
+
+#### Estrutura Electron
+- [ ] Criar `desktop/` com `main.js` (processo principal Electron)
+- [ ] Criar `desktop/package.json` com dependências Electron e scripts de build
+- [ ] Reutilizar `web/server.js` e `web/public/` sem duplicação
+
+#### Funcionalidades do app
+- [ ] Iniciar o servidor Node.js automaticamente ao abrir o app
+- [ ] Abrir a janela Electron apontando para `localhost:PORT`
+- [ ] Aguardar o servidor estar pronto antes de exibir a janela (splash screen)
+- [ ] Encerrar o servidor ao fechar o app
+- [ ] Ícone personalizado EduSquad na janela e na taskbar
+- [ ] Janela sem barra de título padrão (frameless + topbar própria)
+
+#### Build e distribuição
+- [ ] Configurar `electron-builder` para gerar instalador `.exe` (Windows NSIS) e `.dmg` (macOS)
+- [ ] Incluir Node.js e dependências empacotados (sem exigir Node instalado na máquina)
+- [ ] Assinar o executável para evitar alertas de segurança do Windows/macOS
+- [ ] Adicionar script `npm run build:desktop` na raiz do projeto
+
+#### Atualização automática
+- [ ] Integrar `electron-updater` para verificar novas versões ao iniciar
+- [ ] Notificar o usuário quando uma atualização estiver disponível
+
+#### Documentação
+- [ ] Atualizar este README com instruções de download e instalação
+- [ ] Adicionar seção de solução de problemas comuns no Windows (antivírus, permissões)
+
+---
+
 ## Início Rápido
 
 Abra a pasta do projeto no seu IDE e execute:
