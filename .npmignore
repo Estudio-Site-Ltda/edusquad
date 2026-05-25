@@ -1,0 +1,24 @@
+# Assets pesados — não incluir no pacote npm
+assets/icons/
+assets/fonts/
+assets/videos/
+assets/audio/
+assets/images/
+
+# Conteúdo gerado pelo usuário
+squads/
+_edusquad/_browser_profile/
+_edusquad/_memory/
+
+# Arquivos de teste e temporários
+test_encoding.pdf
+*.pdf
+*.tmp
+
+# Dependências
+node_modules/
+
+# CI / editores
+.vscode/
+.idea/
+*.log
