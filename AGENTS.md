@@ -103,8 +103,8 @@ A pasta `assets/` é o repositório central de recursos reutilizáveis entre squ
 
 - **`fonts/`** — fontes colocadas aqui são detectadas automaticamente pela skill `pdf-export` (prioridade sobre fontes do sistema)
 - **`branding/`** — coloque logo e guias visuais para uso consistente nos materiais
-- Branding, imagens, áudio, vídeos e templates adicionados pela instituição **não sobem para o git** (regra no `.gitignore`)
-- Fontes e ícones distribuídos com o framework **são versionados**
+- O conteúdo de **`branding/`** é local e **não sobe para o git** (regra no `.gitignore`)
+- Fontes, ícones, imagens, áudio, vídeos e templates **são versionados e compartilhados**
 
 ---
 

@@ -83,7 +83,8 @@ linear-gradient(135deg, #____ 0%, #____ 100%)
 - **Biblioteca de icones:** <!-- ex: Phosphor Icons -->
 - **Estilo de imagens:** <!-- ex: fotografia real, ilustracao vetorial -->
 - **Arquivos de icones:** `assets/icons/`
-- **Arquivos visuais locais:** `assets/branding/` e `assets/images/`
+- **Arquivos de marca locais:** `assets/branding/`
+- **Imagens compartilhadas:** `assets/images/`
 
 ---
 

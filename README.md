@@ -23,7 +23,7 @@ git pull --ff-only origin master
 npm install
 ```
 
-O repositório ignora os dados locais: `_edusquad/_memory/*.md`, `DESIGN.md`, `squads/`, assets institucionais, credenciais e artefatos de navegador. Assim, atualizações do framework não publicam nem substituem esse conteúdo.
+O repositório ignora os dados locais: `_edusquad/_memory/*.md`, `DESIGN.md`, `squads/`, `assets/branding/`, credenciais e artefatos de navegador. Os demais conteúdos de `assets/` são compartilhados pelo Git.
 
 ### Interface Web (opcional)
 

@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template de Slides | Estudio Site</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/*
+  TEMPLATE DE REFERENCIA PARA SLIDES EDUCACIONAIS
+  - Fonte visual: DESIGN.md
+  - Icones: ../../icons/duotone/
+  - Imagens: ../../images/{categoria}/
+  - Preserve semantica, foco, alt text e comportamento mobile ao reutilizar.
+*/
+:root {
+  --primary-50: #eff9fb;
+  --primary-100: #d7f0f4;
+  --primary-200: #b2e0e8;
+  --primary-500: #1d8a9c;
+  --primary-700: #145c6c;
+  --primary-900: #103b45;
+  --accent-500: #d9534f;
+  --accent-700: #9d3836;
+  --neutral-0: #ffffff;
+  --neutral-50: #f8fafb;
+  --neutral-100: #eef2f4;
+  --neutral-200: #d9e2e7;
+  --neutral-500: #5d6e78;
+  --neutral-600: #43515a;
+  --neutral-900: #141a1d;
+  --success: #216b42;
+  --focus: #d9534f;
+  --shadow: 0 12px 34px rgba(20, 26, 29, .08);
+  --title: "Bricolage Grotesque", Georgia, serif;
+  --body: "Plus Jakarta Sans", Arial, sans-serif;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --nav-clearance: 6.6rem;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--neutral-50);
+  color: var(--neutral-900);
+  font: 400 16px/1.55 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -4rem;
+  z-index: 1001;
+  padding: .75rem 1rem;
+  border-radius: var(--radius);
+  background: var(--neutral-900);
+  color: var(--neutral-0);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 25%;
+  z-index: 1000;
+  background: linear-gradient(90deg, var(--primary-700), var(--primary-500));
+  transition: width .25s ease-out;
+}
+
+.slide-context {
+  display: flex;
+  gap: .45rem;
+  align-items: center;
+  grid-column: 1 / -1;
+  margin-bottom: .35rem;
+  font-size: .68rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--neutral-500);
+}
+
+.slide-context strong {
+  color: var(--primary-700);
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  padding: 2.4rem 3rem calc(var(--nav-clearance) + 1.5rem);
+  opacity: 0;
+  transform: translateX(32px);
+  pointer-events: none;
+  transition: opacity .22s ease-out, transform .22s ease-out;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.slide.exit {
+  opacity: 0;
+  transform: translateX(-32px);
+}
+
+.inner {
+  width: min(1080px, 100%);
+  margin-block: auto;
+}
+
+.eyebrow {
+  margin-bottom: .75rem;
+  color: var(--primary-700);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--title);
+  font-size: clamp(2.35rem, 4.7vw, 4rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -.035em;
+}
+
+.title .highlight,
+.section-title .highlight {
+  color: var(--primary-700);
+}
+
+.section-title {
+  color: var(--neutral-900);
+  font-family: var(--title);
+  font-size: clamp(1.75rem, 3vw, 2.55rem);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -.028em;
+}
+
+.lead {
+  max-width: 62ch;
+  color: var(--neutral-500);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.icon-lg {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: .32rem .82rem;
+  border: 1px solid rgba(29, 138, 156, .35);
+  border-radius: 999px;
+  background: var(--primary-50);
+  color: var(--primary-700);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 48px;
+  padding: .7rem 1.35rem;
+  border: 0;
+  border-radius: 9px;
+  background: var(--primary-700);
+  color: var(--neutral-0);
+  cursor: pointer;
+  font-weight: 700;
+  transition: background .18s ease-out, box-shadow .18s ease-out;
+}
+
+.button:hover {
+  background: var(--primary-500);
+  box-shadow: 0 7px 18px rgba(20, 92, 108, .16);
+}
+
+/* Capa: use para abertura do modulo. */
+.cover .inner {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) 420px;
+  column-gap: 3rem;
+  row-gap: 1.15rem;
+  align-items: center;
+}
+
+.cover-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.15rem;
+}
+
+.cover .lead {
+  margin-bottom: .45rem;
+}
+
+.hero-panel {
+  overflow: hidden;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  background: var(--neutral-0);
+}
+
+.hero-panel figure {
+  aspect-ratio: 16 / 7;
+}
+
+.hero-panel figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 43%;
+}
+
+.metadata {
+  padding: 1rem 1.55rem 1.25rem;
+}
+
+.meta-row {
+  display: flex;
+  gap: .8rem;
+  align-items: flex-start;
+  padding: .8rem 0;
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.meta-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.icon-shell {
+  display: flex;
+  flex: 0 0 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(29, 138, 156, .32);
+  border-radius: 9px;
+  background: var(--primary-50);
+}
+
+.meta-row strong {
+  display: block;
+  margin-bottom: .15rem;
+  font-family: var(--title);
+  font-size: .88rem;
+}
+
+.meta-row span {
+  color: var(--neutral-500);
+  font-size: .79rem;
+}
+
+/* Conteudo com imagem: use quando uma cena torna o conceito concreto. */
+.concept {
+  background: var(--neutral-0);
+}
+
+.concept .inner {
+  display: grid;
+  grid-template-columns: .92fr 1.08fr;
+  column-gap: 3.5rem;
+  row-gap: 1.15rem;
+  align-items: center;
+}
+
+.photo-card {
+  overflow: hidden;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  background: var(--neutral-0);
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+}
+
+.photo-card figcaption {
+  padding: .8rem 1rem .95rem;
+  color: var(--neutral-500);
+  font-size: .8rem;
+}
+
+.concept-copy .section-title {
+  margin-bottom: 1.35rem;
+}
+
+.feature-list {
+  display: grid;
+  gap: .72rem;
+  margin: 1.4rem 0;
+}
+
+.feature {
+  display: flex;
+  gap: .8rem;
+  padding: .9rem 1rem;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius);
+  background: var(--neutral-0);
+}
+
+.feature .icon-shell {
+  flex-basis: 40px;
+  height: 40px;
+}
+
+.feature h3 {
+  margin-bottom: .16rem;
+  font-family: var(--title);
+  font-size: .9rem;
+}
+
+.feature p {
+  color: var(--neutral-500);
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
+.callout {
+  display: flex;
+  gap: .7rem;
+  padding: .9rem 1rem;
+  border: 1px solid rgba(29, 138, 156, .32);
+  border-radius: var(--radius);
+  background: var(--primary-50);
+  color: var(--neutral-600);
+  font-size: .85rem;
+}
+
+.callout strong {
+  color: var(--neutral-900);
+}
+
+/* Abas: use para comparar opcoes sem sobrecarregar um unico quadro. */
+.tabs-slide .inner {
+  width: min(930px, 100%);
+}
+
+.tabs-header {
+  margin-bottom: 1.55rem;
+}
+
+.tabs-header .section-title {
+  max-width: 720px;
+}
+
+.tabs {
+  overflow: hidden;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  background: var(--neutral-0);
+}
+
+.tablist {
+  display: flex;
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.tab {
+  position: relative;
+  display: inline-flex;
+  flex: 1;
+  gap: .45rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 54px;
+  padding: .8rem 1rem;
+  border: 0;
+  background: transparent;
+  color: var(--neutral-500);
+  cursor: pointer;
+  font-family: var(--title);
+  font-weight: 700;
+}
+
+.tab[aria-selected="true"] {
+  color: var(--primary-700);
+}
+
+.tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  right: 10%;
+  bottom: 0;
+  left: 10%;
+  height: 3px;
+  border-radius: 2px 2px 0 0;
+  background: var(--primary-500);
+}
+
+.tabpanel {
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 2rem;
+  padding: 1.65rem;
+}
+
+.tabpanel[hidden] {
+  display: none;
+}
+
+.tabpanel h3 {
+  margin-bottom: .4rem;
+  font-family: var(--title);
+  font-size: 1.24rem;
+}
+
+.tabpanel p {
+  max-width: 55ch;
+  color: var(--neutral-500);
+  font-size: .92rem;
+}
+
+.checklist {
+  display: grid;
+  gap: .55rem;
+  margin-top: 1rem;
+}
+
+.checklist li {
+  display: flex;
+  gap: .5rem;
+  align-items: flex-start;
+  list-style: none;
+  font-size: .85rem;
+}
+
+.side-note {
+  padding: 1.1rem;
+  border-radius: var(--radius);
+  background: var(--neutral-100);
+}
+
+.side-note .eyebrow {
+  margin-bottom: .55rem;
+}
+
+.side-note strong {
+  display: block;
+  margin-bottom: .3rem;
+  font-family: var(--title);
+  font-size: 1.25rem;
+}
+
+.side-note p {
+  font-size: .82rem;
+}
+
+/* Sintese: use no fechamento para consolidar e orientar a proxima acao. */
+.summary .inner {
+  width: min(950px, 100%);
+}
+
+.summary-header {
+  max-width: 700px;
+  margin: 0 auto 1.7rem;
+  text-align: center;
+}
+
+.summary-header .tag {
+  margin-bottom: .8rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .95rem;
+  margin-bottom: 1.3rem;
+}
+
+.summary-card {
+  min-height: 170px;
+  padding: 1.25rem;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  background: var(--neutral-0);
+}
+
+.summary-card .icon-shell {
+  margin-bottom: .85rem;
+}
+
+.summary-card h3 {
+  margin-bottom: .42rem;
+  font-family: var(--title);
+  font-size: .95rem;
+}
+
+.summary-card p {
+  color: var(--neutral-500);
+  font-size: .8rem;
+}
+
+.takeaway {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid rgba(29, 138, 156, .32);
+  border-radius: var(--radius-lg);
+  background: var(--primary-50);
+}
+
+.takeaway h3 {
+  margin-bottom: .18rem;
+  font-family: var(--title);
+  font-size: 1.05rem;
+}
+
+.takeaway p {
+  color: var(--neutral-500);
+  font-size: .85rem;
+}
+
+.nav {
+  position: fixed;
+  bottom: 1.7rem;
+  left: 50%;
+  z-index: 1000;
+  display: flex;
+  gap: .55rem;
+  align-items: center;
+  padding: .42rem .68rem;
+  border: 1px solid var(--neutral-200);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .98);
+  box-shadow: var(--shadow);
+  transform: translateX(-50%);
+}
+
+.nav-button {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--neutral-200);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-button:hover:not(:disabled) {
+  border-color: var(--primary-500);
+  background: var(--primary-50);
+}
+
+.nav-button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  position: relative;
+  width: 36px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  background: var(--neutral-500);
+  transform: translate(-50%, -50%);
+}
+
+.dot[aria-current="step"]::before {
+  width: 21px;
+  background: var(--primary-700);
+}
+
+.count {
+  min-width: 42px;
+  color: var(--neutral-500);
+  font-size: .7rem;
+  text-align: center;
+}
+
+/* Entrance motion: use classes on meaningful content blocks only. */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes revealLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes revealScale {
+  from { opacity: 0; transform: scale(.975); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.reveal-up { transform: translateY(18px); }
+.reveal-left { transform: translateX(-20px); }
+.reveal-scale { transform: scale(.975); }
+.delay-0 { --reveal-delay: .04s; }
+.delay-1 { --reveal-delay: .10s; }
+.delay-2 { --reveal-delay: .18s; }
+.delay-3 { --reveal-delay: .27s; }
+.delay-4 { --reveal-delay: .36s; }
+
+.slide.entered .reveal-up {
+  animation: revealUp .5s var(--reveal-delay, 0s) cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.slide.entered .reveal-left {
+  animation: revealLeft .52s var(--reveal-delay, 0s) cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.slide.entered .reveal-scale {
+  animation: revealScale .5s var(--reveal-delay, 0s) cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.slide.entered .stagger-children > * {
+  animation: revealUp .46s calc(var(--reveal-delay, .14s) + var(--item-delay, 0s)) cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.stagger-children > :nth-child(1) { --item-delay: 0s; }
+.stagger-children > :nth-child(2) { --item-delay: .07s; }
+.stagger-children > :nth-child(3) { --item-delay: .14s; }
+.stagger-children > :nth-child(4) { --item-delay: .21s; }
+
+@media (max-width: 800px) {
+  html, body {
+    height: auto;
+    min-height: 100%;
+    overflow: auto;
+  }
+
+  body {
+    padding-bottom: var(--nav-clearance);
+  }
+
+  .slide-context { margin-bottom: .1rem; }
+
+  .stage {
+    height: auto;
+    min-height: calc(100dvh - 5rem);
+  }
+
+  .slide {
+    position: relative;
+    inset: auto;
+    display: none;
+    min-height: calc(100dvh - 5rem);
+    align-items: flex-start;
+    padding: 1.2rem 1rem calc(var(--nav-clearance) + 1rem);
+    overflow: visible;
+    transform: none;
+  }
+
+  .slide.active {
+    display: flex;
+  }
+
+  .slide.exit {
+    display: none;
+  }
+
+  .title {
+    font-size: clamp(2rem, 10.4vw, 2.45rem);
+  }
+
+  .cover .inner,
+  .concept .inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .cover-copy {
+    gap: .9rem;
+  }
+
+  .hero-panel figure {
+    aspect-ratio: 16 / 7;
+  }
+
+  .metadata {
+    padding: .75rem 1rem .95rem;
+  }
+
+  .tabpanel,
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tablist {
+    overflow-x: auto;
+  }
+
+  .tab {
+    flex: 0 0 124px;
+  }
+
+  .tabpanel {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .summary-header {
+    margin-bottom: 1.25rem;
+    text-align: left;
+  }
+
+  .takeaway {
+    align-items: flex-start;
+  }
+
+  .nav {
+    bottom: max(.5rem, env(safe-area-inset-bottom));
+    width: calc(100% - 1rem);
+    justify-content: space-between;
+    gap: .15rem;
+    padding: .3rem .45rem;
+  }
+
+  .dots {
+    flex: 1;
+    overflow-x: auto;
+  }
+
+  .dot {
+    flex: 0 0 44px;
+    width: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal, .stagger-children > * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#stage">Pular para o conteúdo dos slides</a>
+
+<div class="progress" id="progress" role="progressbar" aria-label="Progresso do modelo" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1"></div>
+
+<main class="stage" id="stage" aria-label="Template visual de slides educacionais">
+  <!-- MODELO 1: CAPA EDITORIAL -->
+  <section class="slide cover active" id="slide-1" aria-label="Slide 1 de 4: capa" aria-roledescription="slide" tabindex="-1">
+    <div class="inner">
+      <p class="slide-context reveal reveal-up delay-0" aria-hidden="true"><strong>Template</strong><span>·</span><span>Modulo</span><strong>01</strong><span>de 04</span></p>
+      <div class="cover-copy stagger-children delay-1">
+        <span class="tag">Categoria do curso</span>
+        <h1 class="title">Título principal com <span class="highlight">palavra-chave</span></h1>
+        <p class="lead">Apresente o objetivo central do módulo em até duas linhas, com linguagem clara, prática e acolhedora.</p>
+        <button class="button" type="button" data-next>
+          Começar módulo
+          <img class="icon" src="../../icons/duotone/arrow-right-duotone.svg" alt="" aria-hidden="true">
+        </button>
+      </div>
+
+      <aside class="hero-panel reveal reveal-scale delay-2" aria-label="Informações do módulo">
+        <figure>
+          <!-- Substitua por imagem gerada em assets/images/{categoria}/ e descreva a cena no alt. -->
+          <img src="../../images/recrutamento-selecao/abertura-modulo-recrutamento-lucid-realism-leonardo-9ec6f642.jpg" alt="Equipe profissional reunida para analisar candidatos.">
+        </figure>
+        <div class="metadata">
+          <div class="meta-row">
+            <span class="icon-shell"><img class="icon" src="../../icons/duotone/book-open-duotone.svg" alt="" aria-hidden="true"></span>
+            <div><strong>Quantidade de slides</strong><span>Conceitos, exemplos e atividade</span></div>
+          </div>
+          <div class="meta-row">
+            <span class="icon-shell"><img class="icon" src="../../icons/duotone/target-duotone.svg" alt="" aria-hidden="true"></span>
+            <div><strong>Objetivo de aprendizagem</strong><span>Verbo observável da Taxonomia de Bloom</span></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- MODELO 2: CONCEITO COM FOTO E CALLOUT -->
+  <section class="slide concept" id="slide-2" aria-label="Slide 2 de 4: conceito com fotografia" aria-roledescription="slide" tabindex="-1" aria-hidden="true">
+    <div class="inner">
+      <p class="slide-context reveal reveal-up delay-0" aria-hidden="true"><strong>Template</strong><span>·</span><span>Modulo</span><strong>02</strong><span>de 04</span></p>
+      <figure class="photo-card reveal reveal-scale delay-1">
+        <img src="../../images/recrutamento-selecao/parceria-gestor-rh-lucid-realism-leonardo-92feb6c4.jpg" alt="Duas profissionais analisam juntas informações em um tablet." loading="lazy" decoding="async">
+        <figcaption>A imagem deve apoiar o conceito, não apenas decorar o slide.</figcaption>
+      </figure>
+
+      <div class="concept-copy stagger-children delay-2">
+        <p class="eyebrow">Conceito essencial</p>
+        <h2 class="section-title">Mensagem didática com <span class="highlight">aplicação real</span></h2>
+        <div class="feature-list stagger-children delay-2">
+          <article class="feature">
+            <span class="icon-shell"><img class="icon" src="../../icons/duotone/target-duotone.svg" alt="" aria-hidden="true"></span>
+            <div>
+              <h3>Ponto principal</h3>
+              <p>Uma explicação curta para ajudar o aluno a compreender e reter a ideia.</p>
+            </div>
+          </article>
+          <article class="feature">
+            <span class="icon-shell"><img class="icon" src="../../icons/duotone/check-circle-duotone.svg" alt="" aria-hidden="true"></span>
+            <div>
+              <h3>Aplicação prática</h3>
+              <p>Traduza o conceito em decisão ou comportamento observável.</p>
+            </div>
+          </article>
+        </div>
+        <div class="callout">
+          <img class="icon" src="../../icons/duotone/lightbulb-duotone.svg" alt="" aria-hidden="true">
+          <p><strong>Dica pedagógica:</strong> use um callout para a virada de mentalidade ou alerta mais importante.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODELO 3: COMPARACAO INTERATIVA -->
+  <section class="slide tabs-slide" id="slide-3" aria-label="Slide 3 de 4: comparacao interativa" aria-roledescription="slide" tabindex="-1" aria-hidden="true">
+    <div class="inner">
+      <p class="slide-context reveal reveal-up delay-0" aria-hidden="true"><strong>Template</strong><span>·</span><span>Modulo</span><strong>03</strong><span>de 04</span></p>
+      <header class="tabs-header reveal reveal-up delay-1">
+        <p class="eyebrow">Comparação guiada</p>
+        <h2 class="section-title">Organize alternativas em <span class="highlight">abas acessíveis</span></h2>
+      </header>
+      <div class="tabs reveal reveal-scale delay-2">
+        <div class="tablist" role="tablist" aria-label="Alternativas do conceito">
+          <button class="tab" id="option-tab-1" type="button" role="tab" aria-controls="option-panel-1" aria-selected="true" tabindex="0">
+            <img class="icon" src="../../icons/duotone/target-duotone.svg" alt="" aria-hidden="true"> Opção A
+          </button>
+          <button class="tab" id="option-tab-2" type="button" role="tab" aria-controls="option-panel-2" aria-selected="false" tabindex="-1">
+            <img class="icon" src="../../icons/duotone/lightbulb-duotone.svg" alt="" aria-hidden="true"> Opção B
+          </button>
+          <button class="tab" id="option-tab-3" type="button" role="tab" aria-controls="option-panel-3" aria-selected="false" tabindex="-1">
+            <img class="icon" src="../../icons/duotone/check-circle-duotone.svg" alt="" aria-hidden="true"> Opção C
+          </button>
+        </div>
+
+        <div class="tabpanel" id="option-panel-1" role="tabpanel" aria-labelledby="option-tab-1">
+          <div>
+            <h3>Nome da alternativa A</h3>
+            <p>Explique quando esta abordagem é apropriada e quais critérios orientam sua escolha.</p>
+            <ul class="checklist">
+              <li><img class="icon" src="../../icons/duotone/check-circle-duotone.svg" alt="" aria-hidden="true"> Vantagem ou condição recomendada</li>
+              <li><img class="icon" src="../../icons/duotone/check-circle-duotone.svg" alt="" aria-hidden="true"> Resultado esperado do uso correto</li>
+            </ul>
+          </div>
+          <aside class="side-note">
+            <p class="eyebrow">Melhor para</p>
+            <strong>Contexto A</strong>
+            <p>Resuma o cenário ideal em uma sentença operacional.</p>
+          </aside>
+        </div>
+        <div class="tabpanel" id="option-panel-2" role="tabpanel" aria-labelledby="option-tab-2" hidden>
+          <div>
+            <h3>Nome da alternativa B</h3>
+            <p>Use o mesmo volume de conteúdo para manter comparação equilibrada e escaneável.</p>
+            <ul class="checklist">
+              <li><img class="icon" src="../../icons/duotone/check-circle-duotone.svg" alt="" aria-hidden="true"> Diferencial que justifica a escolha</li>
+              <li><img class="icon" src="../../icons/duotone/warning-circle-duotone.svg" alt="" aria-hidden="true"> Risco que precisa ser gerenciado</li>
+            </ul>
+          </div>
+          <aside class="side-note">
+            <p class="eyebrow">Melhor para</p>
+            <strong>Contexto B</strong>
+            <p>Indique a condição que torna esta opção a mais coerente.</p>
+          </aside>
+        </div>
+        <div class="tabpanel" id="option-panel-3" role="tabpanel" aria-labelledby="option-tab-3" hidden>
+          <div>
+            <h3>Nome da alternativa C</h3>
+            <p>A última opção fecha a comparação com critérios e consequência da decisão.</p>
+            <ul class="checklist">
+              <li><img class="icon" src="../../icons/duotone/check-circle-duotone.svg" alt="" aria-hidden="true"> Equilíbrio entre vantagens anteriores</li>
+              <li><img class="icon" src="../../icons/duotone/warning-circle-duotone.svg" alt="" aria-hidden="true"> Complexidade adicional a observar</li>
+            </ul>
+          </div>
+          <aside class="side-note">
+            <p class="eyebrow">Melhor para</p>
+            <strong>Contexto C</strong>
+            <p>Encerre indicando como o aluno reconhece este caso.</p>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODELO 4: SINTESE E PROXIMO PASSO -->
+  <section class="slide summary" id="slide-4" aria-label="Slide 4 de 4: sintese" aria-roledescription="slide" tabindex="-1" aria-hidden="true">
+    <div class="inner">
+      <p class="slide-context reveal reveal-up delay-0" aria-hidden="true"><strong>Template</strong><span>·</span><span>Modulo</span><strong>04</strong><span>de 04</span></p>
+      <header class="summary-header reveal reveal-up delay-1">
+        <span class="tag">Síntese do módulo</span>
+        <h2 class="section-title">Feche com os <span class="highlight">aprendizados essenciais</span></h2>
+      </header>
+      <div class="summary-grid stagger-children delay-2">
+        <article class="summary-card">
+          <span class="icon-shell"><img class="icon icon-lg" src="../../icons/duotone/target-duotone.svg" alt="" aria-hidden="true"></span>
+          <h3>Ideia central</h3>
+          <p>Uma sentença breve que consolida o conceito principal estudado.</p>
+        </article>
+        <article class="summary-card">
+          <span class="icon-shell"><img class="icon icon-lg" src="../../icons/duotone/check-circle-duotone.svg" alt="" aria-hidden="true"></span>
+          <h3>Aplicação</h3>
+          <p>A ação que o estudante passa a conseguir executar com segurança.</p>
+        </article>
+        <article class="summary-card">
+          <span class="icon-shell"><img class="icon icon-lg" src="../../icons/duotone/book-open-duotone.svg" alt="" aria-hidden="true"></span>
+          <h3>Próximo passo</h3>
+          <p>A conexão clara com o próximo módulo ou atividade da trilha.</p>
+        </article>
+      </div>
+      <div class="takeaway reveal reveal-up delay-4">
+        <span class="icon-shell"><img class="icon icon-lg" src="../../icons/duotone/lightbulb-duotone.svg" alt="" aria-hidden="true"></span>
+        <div>
+          <h3>Virada de mentalidade</h3>
+          <p>Finalize com uma mensagem memorável, útil no trabalho e coerente com o tom didático do curso.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="nav" aria-label="Navegação dos slides">
+  <button class="nav-button" id="previous" type="button" aria-label="Slide anterior" disabled>
+    <img class="icon" src="../../icons/duotone/arrow-left-duotone.svg" alt="" aria-hidden="true">
+  </button>
+  <div class="dots" id="dots" aria-label="Selecionar slide"></div>
+  <span class="count" id="count" aria-live="polite">1 / 4</span>
+  <button class="nav-button" id="next" type="button" aria-label="Próximo slide">
+    <img class="icon" src="../../icons/duotone/arrow-right-duotone.svg" alt="" aria-hidden="true">
+  </button>
+</nav>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var dots = document.getElementById("dots");
+  var progress = document.getElementById("progress");
+  var count = document.getElementById("count");
+  var previous = document.getElementById("previous");
+  var next = document.getElementById("next");
+  var current = 0;
+
+  slides.forEach(function (slide, index) {
+    var dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "dot";
+    dot.setAttribute("aria-label", "Ir para slide " + (index + 1) + " de " + slides.length);
+    dot.addEventListener("click", function () {
+      showSlide(index, true);
+    });
+    dots.appendChild(dot);
+  });
+
+  function showSlide(index, moveFocus) {
+    if (index < 0 || index >= slides.length) return;
+
+    slides.forEach(function (slide, slideIndex) {
+      var active = index === slideIndex;
+      slide.classList.toggle("active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+      slide.inert = !active;
+    });
+    playSlideEntrance(slides[index]);
+
+    current = index;
+    Array.prototype.forEach.call(dots.children, function (dot, dotIndex) {
+      if (dotIndex === index) dot.setAttribute("aria-current", "step");
+      else dot.removeAttribute("aria-current");
+    });
+
+    progress.style.width = ((index + 1) / slides.length * 100) + "%";
+    progress.setAttribute("aria-valuenow", String(index + 1));
+    count.textContent = (index + 1) + " / " + slides.length;
+    previous.disabled = index === 0;
+    next.disabled = index === slides.length - 1;
+
+    if (window.innerWidth <= 800) {
+      dots.children[index].scrollIntoView({ block: "nearest", inline: "center" });
+      window.scrollTo(0, 0);
+    }
+
+    if (moveFocus) slides[index].focus();
+  }
+
+  function playSlideEntrance(slide) {
+    slide.classList.remove("entered");
+    void slide.offsetWidth;
+    slide.classList.add("entered");
+  }
+
+  previous.addEventListener("click", function () { showSlide(current - 1, true); });
+  next.addEventListener("click", function () { showSlide(current + 1, true); });
+  document.querySelector("[data-next]").addEventListener("click", function () { showSlide(1, true); });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.target.closest("button, [role='tab']")) return;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") showSlide(current + 1, true);
+    if (event.key === "ArrowLeft" || event.key === "ArrowUp") showSlide(current - 1, true);
+  });
+
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  var panels = Array.prototype.slice.call(document.querySelectorAll(".tabpanel"));
+
+  function selectTab(index, focus) {
+    tabs.forEach(function (tab, tabIndex) {
+      var selected = tabIndex === index;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      panels[tabIndex].hidden = !selected;
+    });
+    if (focus) tabs[index].focus();
+  }
+
+  tabs.forEach(function (tab, index) {
+    tab.addEventListener("click", function () { selectTab(index, false); });
+    tab.addEventListener("keydown", function (event) {
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      event.preventDefault();
+      var increment = event.key === "ArrowRight" ? 1 : -1;
+      selectTab((index + increment + tabs.length) % tabs.length, true);
+    });
+  });
+
+  showSlide(0, false);
+})();
+</script>
+</body>
+</html>
