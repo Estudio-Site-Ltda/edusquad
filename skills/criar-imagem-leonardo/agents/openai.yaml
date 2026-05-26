@@ -1,0 +1,4 @@
+interface:
+  display_name: "Criar imagem com Leonardo.Ai"
+  short_description: "Gera imagens Leonardo.Ai e salva em assets"
+  default_prompt: "Use $criar-imagem-leonardo para gerar uma imagem educacional e salvá-la em assets/images."

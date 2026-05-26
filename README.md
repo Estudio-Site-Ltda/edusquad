@@ -90,6 +90,9 @@ HOTMART_CLIENT_SECRET=
 
 # Upload de imagens
 IMGBB_API_KEY=
+
+# Geração de imagens
+LEONARDO_API_KEY=
 ```
 
 ---
@@ -277,12 +280,13 @@ npm run web                       # Abrir a interface web
 |-------|--------|-----------|
 | `scorm-builder` | `scorm/course.zip` | Pacote SCORM 1.2 completo com player HTML, rastreamento e quiz. Upload direto em Moodle, Hotmart, Teachable |
 
-### Design (MCP)
+### Design
 
 | Skill | Integração | Descrição |
 |-------|-----------|-----------|
 | `canva` | Canva MCP | Apresentações, infográficos, capas de curso e materiais visuais |
 | `gamma` | Gamma MCP | Apresentações, documentos e páginas web gerados por IA |
+| `criar-imagem-leonardo` | Leonardo.Ai Production API | Imagens reutilizáveis para capas, thumbnails, cards e materiais educacionais |
 
 ---
 
@@ -297,6 +301,7 @@ npm run web                       # Abrir a interface web
 | Mapa Mental interativo | `mind-map-creator` |
 | Fluxograma interativo | `flowchart-creator` |
 | Design educacional | `canva` |
+| Imagem / Ilustração | `criar-imagem-leonardo` |
 | Planejamento instrucional | `bloom`, `instructional-design` |
 
 ---

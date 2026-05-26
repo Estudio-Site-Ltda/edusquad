@@ -69,6 +69,7 @@ $RECYCLE.BIN/
 
 # Local agent/editor settings
 .claude/settings.local.json
+.codex/
 .vscode/settings.json
 .vscode/*.code-workspace
 .idea/
