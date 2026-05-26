@@ -1,117 +1,36 @@
-# EduSquad — Agent Instructions
+# EduSquad - Instrucoes do Projeto
 
-Framework de orquestração multi-agente para criação de recursos educacionais.
+Este repositorio contem o framework EduSquad. No Codex, a entrada operacional e a skill `.agents/skills/edusquad/SKILL.md`.
 
----
+## Ativacao Obrigatoria
 
-## Inicialização — LEIA PRIMEIRO
+Quando o usuario escrever `/edusquad`, `$edusquad`, `edusquad ...`, ou pedir para criar, executar, listar ou gerenciar squads ou skills educacionais:
 
-Toda vez que o usuário invocar `/edusquad` ou qualquer comando EduSquad:
+1. Leia `.agents/skills/edusquad/SKILL.md`.
+2. Execute a acao solicitada; nao responda apenas com explicacoes genericas.
+3. Se faltarem dados, siga o fluxo interativo definido na skill.
 
-1. Se `_edusquad/_memory/institution.md`, `learner-profile.md` ou `preferences.md` não existir, copie o respectivo arquivo `.example.md` para o nome sem `.example`
-2. Leia `_edusquad/_memory/institution.md`
-3. Verifique se ainda contém a string `ex:` ou se o campo `**Nome:**` está vazio/template
-4. **Se sim (primeiro uso):** leia `_edusquad/core/prompts/onboarding.prompt.md` e execute o onboarding interativo **antes de qualquer outra coisa**
-5. **Se não (já configurado):** carregue o contexto e exiba o menu principal normalmente
+## Separacao De Skills
 
----
+- `.agents/skills/edusquad/SKILL.md`: skill nativa que ativa o EduSquad no Codex.
+- `skills/*/SKILL.md`: capacidades internas usadas pelos squads; devem ser descobertas e carregadas pelo EduSquad, nao pelo carregador de skills do Codex.
+- `.claude/skills/` e `.agent/workflows/`: compatibilidade com outras interfaces; nao sao a fonte de comportamento do Codex.
 
-## Comandos disponíveis
+## Arquivos Core Sob Demanda
 
-| Comando | Ação |
-|---------|------|
-| `/edusquad` | Menu principal |
-| `/edusquad criar` | Criar novo squad educacional |
-| `/edusquad rodar <nome>` | Executar um squad |
-| `/edusquad listar` | Listar todos os squads |
-| `/edusquad skills` | Gerenciar skills instaladas |
-| `/edusquad configurar` | Reconfigurar o ambiente |
-| `/edusquad ajuda` | Ver todos os comandos |
+- Criacao, edicao e listagem: `_edusquad/core/architect.agent.yaml`
+- Execucao de squad: `_edusquad/core/runner.pipeline.md`
+- Descoberta e gerenciamento de skills: `_edusquad/core/skills.engine.md`
+- Primeiro uso ou reconfiguracao: `_edusquad/core/prompts/onboarding.prompt.md`
 
----
+## Dados Locais
 
-## Arquivos core
+Nao versionar, substituir por atualizacao ou expor sem necessidade:
 
-| Arquivo | Função |
-|---------|--------|
-| `_edusquad/core/architect.agent.yaml` | Agente Pedagogo (arquiteto) |
-| `_edusquad/core/runner.pipeline.md` | Orquestrador de execução |
-| `_edusquad/core/skills.engine.md` | Motor de skills |
-| `_edusquad/core/best-practices/` | Biblioteca pedagógica (Bloom, ADDIE…) |
-| `_edusquad/core/prompts/onboarding.prompt.md` | Onboarding interativo |
+- `_edusquad/_memory/*.md`, exceto `*.example.md`
+- `DESIGN.md`, `.env`, `.codex/`, `.playwright-cli/`
+- `_edusquad/_browser_profile/`, `assets/branding/`, `squads/`
 
----
+`assets/` fora de `branding/` e compartilhado pelo Git.
 
-## Memória persistente
-
-Carregue estes arquivos no início de cada sessão EduSquad:
-
-| Arquivo | Conteúdo |
-|---------|----------|
-| `_edusquad/_memory/institution.md` | Dados da instituição/empresa |
-| `_edusquad/_memory/learner-profile.md` | Perfil do aprendiz típico |
-| `_edusquad/_memory/preferences.md` | Preferências do usuário |
-| `_edusquad/_memory/design-system.md` | Design system carregado via interface web — opcional |
-| [`DESIGN.md`](../DESIGN.md) | **Manual da marca local** — fonte de verdade de cores, fontes, logo e regras visuais. Leia antes de gerar qualquer material com identidade visual. |
-
-Esses arquivos podem ser editados manualmente a qualquer momento e não são versionados. Se `DESIGN.md` ainda não existir, copie `DESIGN.example.md` antes de registrar a identidade visual.
-
----
-
-## Estrutura de diretórios
-
-```
-edusquad/
-├── _edusquad/               # Core do framework (não editar manualmente)
-│   ├── _memory/             # Memória persistente
-│   ├── _browser_profile/    # Sessões de browser (privado, não versionado)
-│   └── core/                # Agentes, runner, skills engine, prompts
-│
-├── assets/                  # Recursos reutilizáveis entre squads
-│   ├── branding/            # Logo, paleta, identidade visual
-│   ├── images/              # Fotos e ilustrações
-│   ├── icons/               # Ícones SVG/PNG
-│   ├── fonts/               # Fontes TTF/OTF (uso offline no reportlab e PDF)
-│   ├── audio/               # Narração, trilhas sonoras
-│   ├── videos/              # Vídeos de referência ou b-roll
-│   └── templates/           # Templates HTML, PPTX base
-│
-├── skills/                  # Skills instaladas
-├── squads/                  # Squads criados pelo usuário
-│   └── {nome}/
-│       ├── squad.yaml
-│       └── output/{run_id}/ # Outputs versionados por data/hora
-│
-└── web/                     # Interface web local (npm run web → localhost:3000)
-```
-
----
-
-## Como funciona
-
-1. No **primeiro uso** o onboarding configura o ambiente via `institution.md`, `learner-profile.md` e `preferences.md`
-2. O agente **Pedagogo** (`architect.agent.yaml`) cria e configura squads
-3. O **Pipeline Runner** executa os squads passo a passo
-4. Agentes comunicam-se via persona switching (inline) ou subagentes (background)
-5. Checkpoints pausam a execução para revisão e aprovação humana
-
----
-
-## Assets
-
-A pasta `assets/` é o repositório central de recursos reutilizáveis entre squads.
-
-- **`fonts/`** — fontes colocadas aqui são detectadas automaticamente pela skill `pdf-export` (prioridade sobre fontes do sistema)
-- **`branding/`** — coloque logo e guias visuais para uso consistente nos materiais
-- O conteúdo de **`branding/`** é local e **não sobe para o git** (regra no `.gitignore`)
-- Fontes, ícones, imagens, áudio, vídeos e templates **são versionados e compartilhados**
-
----
-
-## Sessões de browser
-
-O EduSquad usa um perfil persistente do Playwright para sessões em plataformas externas.
-
-- Sessões salvas em `_edusquad/_browser_profile/` (privado, não versionado)
-- Primeiro acesso a uma plataforma requer login manual
-- Execuções subsequentes reutilizam a sessão salva
+Mantenha este arquivo curto. Os fluxos operacionais pertencem a skill Codex e aos arquivos core.

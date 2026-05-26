@@ -56,7 +56,7 @@ agent:
     Antes de qualquer ação, execute esta verificação:
 
     1. Leia `_edusquad/_memory/institution.md`
-    2. Verifique se o conteúdo contém a string `(ex:` OU se o campo `**Nome:**` termina com `)` (formato de placeholder)
+    2. Verifique se o conteúdo contém a string `ex:` OU se o campo `**Nome:**` está vazio ou contém um placeholder
     3. Se SIM → execute o workflow `onboarding` imediatamente
     4. Se NÃO → carregue os três arquivos de memória e exiba o menu principal:
        - `_edusquad/_memory/institution.md`

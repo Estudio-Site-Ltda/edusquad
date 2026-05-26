@@ -223,7 +223,7 @@ O app usa **Electron** para envolver o servidor Node.js existente (`web/server.j
 Abra a pasta do projeto no seu IDE e execute:
 
 ```
-/edusquad
+$edusquad
 ```
 
 Na primeira vez, o onboarding interativo configura o framework com os dados da sua instituição. Nas próximas vezes, exibe o menu principal.
@@ -231,14 +231,24 @@ Na primeira vez, o onboarding interativo configura o framework com os dados da s
 ### Comandos principais
 
 ```
-/edusquad               — Menu principal
-/edusquad criar         — Criar um novo squad educacional
-/edusquad rodar <nome>  — Executar um squad
-/edusquad listar        — Ver todos os squads
-/edusquad skills        — Gerenciar skills instaladas
-/edusquad configurar    — Reconfigurar o ambiente
-/edusquad ajuda         — Ver todos os comandos
+$edusquad               — Menu principal
+$edusquad criar         — Criar um novo squad educacional
+$edusquad rodar <nome>  — Executar um squad
+$edusquad listar        — Ver todos os squads
+$edusquad skills        — Gerenciar skills instaladas
+$edusquad configurar    — Reconfigurar o ambiente
+$edusquad ajuda         — Ver todos os comandos
 ```
+
+### Uso no Codex
+
+O Codex usa `.agents/skills/edusquad/SKILL.md` como ponto de entrada operacional. Em uma sessao aberta na raiz deste repositorio:
+
+- execute `/skills` para localizar a skill habilitada ou use `$edusquad` para invoca-la explicitamente;
+- use comandos como `$edusquad criar ...` e `$edusquad skills`;
+- o texto `/edusquad criar ...` tambem e roteado quando chega como mensagem, mas o repositorio nao registra esse nome como slash command nativo do Codex.
+
+A pasta `skills/` e o catalogo interno de capacidades dos squads, nao a pasta de skills nativas do Codex. Apos `git pull`, abra uma nova sessao do Codex para que `AGENTS.md` e as skills do projeto sejam carregados novamente.
 
 ### Comandos CLI (terminal)
 
