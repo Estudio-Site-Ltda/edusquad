@@ -9,23 +9,26 @@ Crie equipes virtuais (squads) de agentes de IA que colaboram para produzir mate
 ## Instalação
 
 ```bash
-npx edusquad init
+git clone https://github.com/Estudio-Site-Ltda/edusquad.git
+cd edusquad
+npm install
 ```
 
-Clona o framework no diretório atual, instala as dependências e inicia o onboarding interativo de configuração.
+Ao executar `/edusquad` pela primeira vez, os modelos locais de memória são criados e o onboarding interativo inicia a configuração.
 
 ### Atualizar para a versão mais recente
 
 ```bash
-npx edusquad update
+git pull --ff-only origin master
+npm install
 ```
 
-Atualiza os arquivos core do framework preservando seus squads, skills e configurações locais.
+O repositório ignora os dados locais: `_edusquad/_memory/*.md`, `DESIGN.md`, `squads/`, assets institucionais, credenciais e artefatos de navegador. Assim, atualizações do framework não publicam nem substituem esse conteúdo.
 
 ### Interface Web (opcional)
 
 ```bash
-npx edusquad web
+npm run web
 ```
 
 Abre uma interface visual no browser (`localhost:3000`) para usuários que preferem não usar o terminal. Veja a seção [Interface Web](#interface-web) para mais detalhes.
@@ -98,7 +101,7 @@ Uma interface visual local para usar o EduSquad sem precisar do terminal — ide
 ### Como iniciar
 
 ```bash
-npx edusquad web
+npm run web
 # ou, dentro do projeto:
 npm run web
 ```
@@ -237,9 +240,9 @@ Na primeira vez, o onboarding interativo configura o framework com os dados da s
 ### Comandos CLI (terminal)
 
 ```bash
-npx edusquad init    # Instalar o framework
-npx edusquad update  # Atualizar o framework
-npx edusquad web     # Abrir a interface web
+git pull --ff-only origin master  # Atualizar o framework a partir do GitHub
+npm install                       # Sincronizar dependências após atualização
+npm run web                       # Abrir a interface web
 ```
 
 ---
@@ -327,7 +330,9 @@ edusquad/
 │   ├── gamma/
 │   └── edusquad-skill-creator/
 │
-├── squads/                      # Seus squads ficam aqui
+├── DESIGN.example.md            # Modelo versionado do manual da marca
+├── DESIGN.md                    # Manual preenchido local (não versionado)
+├── squads/                      # Seus squads locais (não versionados)
 │   └── {nome}/
 │       ├── squad.yaml
 │       └── output/
@@ -338,7 +343,7 @@ edusquad/
 │   ├── public/                  # Frontend (HTML, CSS, JS)
 │   └── node_modules/            # Dependências da interface web
 │
-├── bin/                         # CLI (npx edusquad)
+├── bin/                         # CLI de compatibilidade
 ├── .env                         # Suas chaves de API (não versionado)
 └── .mcp.json                    # Configuração MCP
 ```

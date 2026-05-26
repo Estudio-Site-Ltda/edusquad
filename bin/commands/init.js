@@ -138,6 +138,23 @@ if (!fs.existsSync(envPath) && fs.existsSync(envExamplePath)) {
   success('.env criado (preencha suas chaves de API)');
 }
 
+const localTemplateCopies = [
+  ['DESIGN.example.md', 'DESIGN.md'],
+  ['_edusquad/_memory/institution.example.md', '_edusquad/_memory/institution.md'],
+  ['_edusquad/_memory/learner-profile.example.md', '_edusquad/_memory/learner-profile.md'],
+  ['_edusquad/_memory/preferences.example.md', '_edusquad/_memory/preferences.md'],
+];
+
+for (const [template, localFile] of localTemplateCopies) {
+  const templatePath = path.join(TARGET, template);
+  const localPath = path.join(TARGET, localFile);
+  if (!fs.existsSync(localPath) && fs.existsSync(templatePath)) {
+    fs.mkdirSync(path.dirname(localPath), { recursive: true });
+    fs.copyFileSync(templatePath, localPath);
+    success(`${localFile} criado a partir do modelo local`);
+  }
+}
+
 // 6. Mensagem final
 console.log('');
 console.log('  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');

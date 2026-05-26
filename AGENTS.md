@@ -8,10 +8,11 @@ Framework de orquestração multi-agente para criação de recursos educacionais
 
 Toda vez que o usuário invocar `/edusquad` ou qualquer comando EduSquad:
 
-1. Leia `_edusquad/_memory/institution.md`
-2. Verifique se ainda contém a string `(ex:` ou se o campo `**Nome:**` está vazio/template
-3. **Se sim (primeiro uso):** leia `_edusquad/core/prompts/onboarding.prompt.md` e execute o onboarding interativo **antes de qualquer outra coisa**
-4. **Se não (já configurado):** carregue o contexto e exiba o menu principal normalmente
+1. Se `_edusquad/_memory/institution.md`, `learner-profile.md` ou `preferences.md` não existir, copie o respectivo arquivo `.example.md` para o nome sem `.example`
+2. Leia `_edusquad/_memory/institution.md`
+3. Verifique se ainda contém a string `ex:` ou se o campo `**Nome:**` está vazio/template
+4. **Se sim (primeiro uso):** leia `_edusquad/core/prompts/onboarding.prompt.md` e execute o onboarding interativo **antes de qualquer outra coisa**
+5. **Se não (já configurado):** carregue o contexto e exiba o menu principal normalmente
 
 ---
 
@@ -51,9 +52,9 @@ Carregue estes arquivos no início de cada sessão EduSquad:
 | `_edusquad/_memory/learner-profile.md` | Perfil do aprendiz típico |
 | `_edusquad/_memory/preferences.md` | Preferências do usuário |
 | `_edusquad/_memory/design-system.md` | Design system carregado via interface web — opcional |
-| [`DESIGN.md`](../DESIGN.md) | **Manual da marca** — fonte de verdade de cores, fontes, logo e regras visuais. Leia antes de gerar qualquer material com identidade visual. |
+| [`DESIGN.md`](../DESIGN.md) | **Manual da marca local** — fonte de verdade de cores, fontes, logo e regras visuais. Leia antes de gerar qualquer material com identidade visual. |
 
-Esses arquivos podem ser editados manualmente a qualquer momento.
+Esses arquivos podem ser editados manualmente a qualquer momento e não são versionados. Se `DESIGN.md` ainda não existir, copie `DESIGN.example.md` antes de registrar a identidade visual.
 
 ---
 
@@ -102,8 +103,8 @@ A pasta `assets/` é o repositório central de recursos reutilizáveis entre squ
 
 - **`fonts/`** — fontes colocadas aqui são detectadas automaticamente pela skill `pdf-export` (prioridade sobre fontes do sistema)
 - **`branding/`** — coloque logo e guias visuais para uso consistente nos materiais
-- Vídeos e áudios pesados **não sobem para o git** (regra no `.gitignore`)
-- Fontes, ícones e imagens leves **são versionados**
+- Branding, imagens, áudio, vídeos e templates adicionados pela instituição **não sobem para o git** (regra no `.gitignore`)
+- Fontes e ícones distribuídos com o framework **são versionados**
 
 ---
 

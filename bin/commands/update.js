@@ -23,10 +23,14 @@ const CORE_FILES = [
   'CLAUDE.md',
   'AGENTS.md',
   'README.md',
+  'DESIGN.example.md',
   'package.json',
   'bin/cli.js',
   'bin/commands/init.js',
   'bin/commands/update.js',
+  '_edusquad/_memory/institution.example.md',
+  '_edusquad/_memory/learner-profile.example.md',
+  '_edusquad/_memory/preferences.example.md',
 ];
 
 // Estes NUNCA são sobrescritos (dados do usuário)

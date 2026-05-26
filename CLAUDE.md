@@ -15,5 +15,5 @@ Toda a documentação operacional do framework está centralizada em [AGENTS.md]
 | Documento | Conteúdo |
 |-----------|----------|
 | [AGENTS.md](AGENTS.md) | Inicialização, comandos, estrutura, memória, assets |
-| [DESIGN.md](DESIGN.md) | Manual da marca — cores, fontes, logo, regras visuais |
+| [DESIGN.example.md](DESIGN.example.md) | Modelo versionado do manual da marca; a cópia local `DESIGN.md` não é versionada |
 | [README.md](README.md) | Instalação, skills disponíveis, interface web, exemplos |
