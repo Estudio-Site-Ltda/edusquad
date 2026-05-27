@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  TEMPLATE PADRÃO — APOSTILAS EDUSQUAD                               ║
+  ║  Versão: 1.0 · Criado: 2026-05-26                                   ║
+  ║                                                                      ║
+  ║  ⚠️  PASSO OBRIGATÓRIO ANTES DE USAR                                 ║
+  ║  Leia DESIGN.md na raiz do projeto e aplique:                        ║
+  ║    · Cores → substitua os valores no bloco :root abaixo             ║
+  ║    · Fontes → confirme os nomes em DESIGN.md > Tipografia           ║
+  ║    · Tom de voz e nome da marca → use em textos de apresentação     ║
+  ║  Se DESIGN.md não existir, use os valores padrão abaixo.            ║
+  ║                                                                      ║
+  ║  VARIÁVEIS DE CONTEÚDO A SUBSTITUIR:                                 ║
+  ║    [TITULO]          Título principal (ex: WHATSAPP)                 ║
+  ║    [PRE_TITULO]      Linha acima do título na capa                   ║
+  ║    [POS_TITULO]      Subtítulo logo abaixo do título                 ║
+  ║    [SUBTITULO]       Frase descritiva na capa                        ║
+  ║    [TEMA_COMPLETO]   Nome completo para cabeçalhos de página         ║
+  ║    [SLUG]            Identificador do run (ex: 2026-05-26-103629)    ║
+  ║    [CAP_N]           Número do capítulo                              ║
+  ║    [CAP_TITULO]      Título do capítulo                              ║
+  ║    [CAP_CATEGORIA]   Categoria do capítulo (ex: Guia prático)        ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[TITULO] — Apostila</title>
+<style>
+
+/* ─── RESET ──────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+@page { size: A4; margin: 0; }
+
+/* ─── FONTES ─────────────────────────────────────────────────────────── */
+/*
+  Fonte de títulos e fonte de corpo definidas em DESIGN.md > Tipografia.
+  Arquivos TTF em assets/fonts/ — caminhos relativos ao output do run.
+  Padrão: Bricolage Grotesque (títulos) · Plus Jakarta Sans (corpo)
+*/
+@font-face {
+  /* DESIGN.md → Tipografia → Fonte de títulos */
+  font-family: 'Bricolage Grotesque';
+  src: url('fonts/BricolageGrotesque-Variable.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  /* DESIGN.md → Tipografia → Fonte de corpo */
+  font-family: 'Plus Jakarta Sans';
+  src: url('fonts/PlusJakartaSans-Variable.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── DESIGN TOKENS ──────────────────────────────────────────────────── */
+/*
+  FONTE DE VERDADE: DESIGN.md > Paleta de Cores
+  Cada variável abaixo corresponde a um campo da tabela de cores do DESIGN.md.
+  Antes de gerar a apostila, leia DESIGN.md e substitua os valores abaixo
+  pelos valores definidos para o projeto/cliente.
+  Se DESIGN.md não existir, os valores padrão aqui são usados como fallback.
+
+  Mapeamento DESIGN.md → variável CSS:
+    "Primária"         → --primary
+    "Primária escura"  → --primary-dark
+    "Primária clara"   → --primary-light
+    "Accent"           → --accent
+    "Accent escuro"    → --accent-dark
+    "Fundo"            → --background
+    "Fundo escuro"     → --background-dark
+    "Texto"            → --ink
+    "Texto suave"      → --muted
+    "Borda"            → --line
+    Primary-50 (escala completa) → --soft
+    "Sucesso"          → --success
+    "Alerta"           → --warning
+*/
+:root {
+  --primary:          /* DESIGN.md: Primária         */ #1d8a9c;
+  --primary-dark:     /* DESIGN.md: Primária escura  */ #145c6c;
+  --primary-light:    /* DESIGN.md: Primária clara   */ #b2e0e8;
+  --accent:           /* DESIGN.md: Accent           */ #d9534f;
+  --accent-dark:      /* DESIGN.md: Accent escuro    */ #9d3836;
+  --background:       /* DESIGN.md: Fundo            */ #f8fafb;
+  --background-dark:  /* DESIGN.md: Fundo escuro     */ #1f282d;
+  --ink:              /* DESIGN.md: Texto            */ #141a1d;
+  --muted:            /* DESIGN.md: Texto suave      */ #7f929d;
+  --line:             /* DESIGN.md: Borda            */ #d9e2e7;
+  --soft:             /* DESIGN.md: Primary-50       */ #eff9fb;
+  --success:          /* DESIGN.md: Sucesso          */ #4DB87A;
+  --warning:          /* DESIGN.md: Alerta           */ #F0A500;
+}
+
+/* ─── BASE ───────────────────────────────────────────────────────────── */
+html, body { margin: 0; padding: 0; background: #eef2f4; color: var(--ink); }
+body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; font-size: 12pt; line-height: 1.5; }
+
+/* ─── PÁGINA BASE ────────────────────────────────────────────────────── */
+.page {
+  position: relative;
+  width: 210mm; height: 297mm;
+  margin: 0 auto 4mm;
+  background: var(--background);
+  padding: 23mm 20mm 20mm;
+  page-break-after: always;
+  break-after: page;
+  overflow: hidden;
+}
+.page:last-child { page-break-after: auto; }
+
+/* ─── CABEÇALHO E RODAPÉ ─────────────────────────────────────────────── */
+.page-header {
+  position: absolute; left: 20mm; right: 20mm; top: 10mm;
+  display: flex; justify-content: space-between;
+  font-size: 8pt; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+}
+.page-footer {
+  position: absolute; left: 20mm; right: 20mm; bottom: 9mm;
+  display: flex; justify-content: space-between;
+  padding-top: 2.5mm; border-top: 1px solid var(--line);
+  font-size: 8.5pt; color: var(--muted);
+}
+
+/* ─── TIPOGRAFIA ─────────────────────────────────────────────────────── */
+.kicker { font-size: 10pt; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: .09em; margin: 6mm 0 6mm; }
+h1 { font-family: 'Bricolage Grotesque', Georgia, serif; font-size: 30pt; font-weight: 800; line-height: 1.17; color: var(--ink); margin: 0 0 10mm; }
+h2 { font-family: 'Bricolage Grotesque', Georgia, serif; font-size: 16pt; font-weight: 700; color: var(--ink); margin: 8mm 0 4mm; border-bottom: 2px solid var(--primary); padding-bottom: 2.5mm; }
+h3 { font-family: 'Bricolage Grotesque', Georgia, serif; font-size: 15pt; font-weight: 600; color: #2e3940; }
+p { margin: 0 0 5mm; line-height: 1.62; }
+ul, ol { margin: 3mm 0 7mm 7mm; padding-left: 5mm; }
+li { margin: 0 0 3mm; line-height: 1.5; }
+blockquote { margin: 0 0 8mm; padding: 6mm; border-left: 4px solid var(--accent); background: #fdf6f6; font-style: italic; color: #3b2a2a; border-radius: 0 6px 6px 0; font-size: 11.5pt; }
+table { width: 100%; border-collapse: collapse; margin: 5mm 0 8mm; font-size: 10.5pt; }
+th { background: var(--primary); color: #fff; padding: 3mm 4mm; text-align: left; font-weight: 600; }
+td { padding: 2.8mm 4mm; border-bottom: 1px solid var(--line); }
+tr:nth-child(even) td { background: var(--soft); }
+strong { font-weight: 700; }
+
+/* ─── BOXES DIDÁTICOS ────────────────────────────────────────────────── */
+/*
+  Classes disponíveis:
+    box alert   → 📌 ATENÇÃO / REGRA DE OURO   (borda vermelha)
+    box tip     → 💡 DICA PRÁTICA               (borda primária)
+    box more    → 🔍 SAIBA MAIS                 (borda cinza/muted)
+    box reflect → 📝 PARA REFLETIR              (borda warning)
+    box best    → ✅ BOAS PRÁTICAS              (borda success)
+*/
+.box { border-radius: 8px; padding: 4.5mm 5mm; margin: 7mm 0; }
+.box strong { display: block; font-size: 9pt; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 2mm; }
+.box p { margin: 0; font-size: 10.8pt; line-height: 1.52; }
+.box ul { margin: 2mm 0 0 4mm; }
+.box li { font-size: 10.8pt; margin-bottom: 2mm; }
+.box.alert  { border-left: 4px solid var(--accent);   background: #fdf1f1; }
+.box.alert strong  { color: var(--accent-dark); }
+.box.tip    { border-left: 4px solid var(--primary);  background: var(--soft); }
+.box.tip strong    { color: var(--primary-dark); }
+.box.more   { border-left: 4px solid var(--muted);    background: #f2f6f8; }
+.box.more strong   { color: #4a6270; }
+.box.reflect { border-left: 4px solid var(--warning); background: #fffbf0; }
+.box.reflect strong { color: #7a5700; }
+.box.best   { border-left: 4px solid var(--success);  background: #f0faf4; }
+.box.best strong   { color: #2a6644; }
+
+/* ─── EXEMPLO REAL ───────────────────────────────────────────────────── */
+.example { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 5mm; margin: 6mm 0; }
+.example strong { display: block; font-size: 9pt; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 2mm; }
+
+/* ─── ESTUDO DE CASO ─────────────────────────────────────────────────── */
+.case { background: var(--background-dark); color: #fff; border-radius: 8px; padding: 6mm; margin: 6mm 0; }
+.case h3 { color: var(--primary-light); font-size: 13pt; margin: 0 0 4mm; }
+.case p { color: rgba(255,255,255,.85); font-size: 10.8pt; margin-bottom: 3mm; line-height: 1.5; }
+.case strong { color: var(--primary-light); }
+
+/* ─── ATIVIDADE DE FIXAÇÃO ───────────────────────────────────────────── */
+.activity { background: var(--soft); border-radius: 8px; padding: 6mm; margin-bottom: 8mm; font-size: 12pt; }
+.write-line { margin: 4.5mm 0; font-size: 9.5pt; color: var(--muted); }
+.write-line span { display: block; border-bottom: 1px solid #b8c6cf; height: 7mm; margin-top: 2mm; }
+
+/* ─── SÍNTESE (pontos-chave) ─────────────────────────────────────────── */
+.summary li { padding-left: 1mm; margin-bottom: 3mm; }
+.checks li::marker { color: var(--primary); }
+
+/* ─── REFERÊNCIAS DO CAPÍTULO ────────────────────────────────────────── */
+.sources { font-size: 8.4pt; line-height: 1.3; }
+.sources li { margin-bottom: 2.5mm; overflow-wrap: anywhere; }
+
+/* ─── SCRIPT DE VENDAS ───────────────────────────────────────────────── */
+.script { background: var(--background); border-radius: 8px; margin: 6mm 0; padding: 5mm; border: 1px solid var(--line); }
+.script h2 { font-size: 15pt; border: 0; margin: 0 0 2mm; color: var(--primary-dark); }
+.script p { font-size: 10.3pt; margin: 0; }
+.customize { color: var(--muted); font-size: 8.6pt; margin-top: 2mm; }
+
+/* ─── PASSO A PASSO ──────────────────────────────────────────────────── */
+.step { display: flex; align-items: center; background: var(--soft); border-radius: 7px; padding: 3mm; margin-bottom: 3mm; }
+.step b { display: flex; align-items: center; justify-content: center; width: 9mm; height: 9mm; border-radius: 50%; background: var(--primary); color: #fff; margin-right: 4mm; flex-shrink: 0; }
+.step p { margin: 0; }
+
+/* ─── SUMÁRIO ────────────────────────────────────────────────────────── */
+.toc { margin-top: 4mm; }
+.toc-item { display: flex; justify-content: space-between; align-items: baseline; padding: 3mm 0; border-bottom: 1px dotted var(--line); font-size: 11pt; }
+.toc-item strong { font-weight: 700; color: var(--ink); }
+.toc-item em { color: var(--muted); font-style: normal; font-size: 9.5pt; }
+.toc.end { margin-top: 7mm; }
+
+/* ─── ROADMAP (grid 2 colunas) ───────────────────────────────────────── */
+.roadmap { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+.roadmap div { border-left: 4px solid var(--primary); padding: 2.6mm 3mm; background: var(--soft); display: grid; grid-template-columns: 10mm 1fr; }
+.roadmap b { color: var(--primary); }
+.roadmap small { grid-column: 2; color: var(--muted); font-size: 8pt; }
+
+/* ─── MÉTRICAS ───────────────────────────────────────────────────────── */
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; margin: 5mm 0; }
+.metrics div { background: var(--soft); border-radius: 6px; padding: 3mm 4mm; }
+.metrics span { display: block; border-bottom: 1px dotted #b8c6cf; font-size: 8.5pt; margin-bottom: 3mm; color: var(--muted); }
+
+/* ─── ESTUDO DE CASO (questões) ──────────────────────────────────────── */
+.intro { color: var(--muted); font-size: 10.2pt; }
+
+/* ─── GABARITO ───────────────────────────────────────────────────────── */
+.answer { margin: 0 0 9mm; padding-bottom: 6mm; border-bottom: 1px solid var(--line); }
+.answer h2 { margin-top: 0; }
+
+/* ─── BIBLIOGRAFIAS ──────────────────────────────────────────────────── */
+.bibliography { font-size: 9.2pt; line-height: 1.35; overflow-wrap: anywhere; }
+.bibliography li { margin-bottom: 4mm; }
+
+/* ─── VARIANTE DENSA (mais conteúdo por página) ──────────────────────── */
+.page.dense h1 { margin-bottom: 7mm; }
+.page.dense h2 { margin: 5mm 0 2.5mm; }
+.page.dense p { margin-bottom: 3.4mm; line-height: 1.52; }
+.page.dense ul, .page.dense ol { margin-bottom: 4mm; }
+.page.dense li { margin-bottom: 2mm; line-height: 1.42; }
+.page.dense .example { margin: 3mm 0; padding: 3mm 4mm; }
+.page.dense .box { margin: 4mm 0; padding: 3.5mm 4mm; }
+
+/* ─── PÁGINA DE ABERTURA DE CAPÍTULO ─────────────────────────────────── */
+.chapter-open h1 { max-width: 158mm; }
+
+/* ─── CONTRACAPA ─────────────────────────────────────────────────────── */
+.back-cover { background: var(--background-dark); color: #fff; padding-top: 48mm; }
+.back-cover .page-header, .back-cover .page-footer { color: var(--primary-light); border-color: rgba(255,255,255,.2); }
+.back-cover .kicker, .back-cover h1 { color: #fff; }
+.back-copy { font-size: 16pt; line-height: 1.55; max-width: 142mm; margin: 15mm 0; }
+.back-card { border: 1px solid rgba(255,255,255,.3); padding: 7mm; width: 125mm; }
+.back-card p { margin: 3mm 0 0; }
+
+/* ─── CAPA ───────────────────────────────────────────────────────────── */
+/*
+  CSS de fundo (3 zonas):
+    · Escuro no topo → texto legível
+    · Transparente no meio → imagem visível
+    · Escuro no rodapé → descrição legível
+
+  A imagem de capa deve estar em: images/capa.jpg
+  (gerada com a skill criar-imagem-leonardo, modelo lucid-realism, estilo CINEMATIC, 896×1264)
+*/
+.cover {
+  background:
+    linear-gradient(to bottom,
+      rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.80) 18%, rgba(0,0,0,0.65) 32%,
+      rgba(0,0,0,0.08) 50%, rgba(0,0,0,0.10) 64%,
+      rgba(5,20,28,0.94) 78%, rgba(5,20,28,1) 100%),
+    url('images/capa.jpg') center top/cover no-repeat;
+  color: #fff;
+  padding: 38mm 20mm 16mm;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.cover .page-header { display: none; }
+.cover .page-footer { display: none; }
+.cover .kicker { display: none; }
+.cover-pre { font-family: 'Bricolage Grotesque', Georgia, serif; font-size: 12pt; font-weight: 300; color: rgba(255,255,255,0.68); letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 1mm; }
+.cover h1 { font-family: 'Bricolage Grotesque', Georgia, serif; font-size: 90pt; margin: 0; line-height: 0.90; font-weight: 900; letter-spacing: -3px; color: #ffffff; text-shadow: 0 2px 0 rgba(180,180,180,0.25), 0 3px 8px rgba(0,0,0,0.75), 0 8px 28px rgba(0,0,0,0.85), 0 16px 50px rgba(0,0,0,0.50), 0 -3px 18px rgba(255,255,255,0.08); }
+.cover-post { font-family: 'Bricolage Grotesque', Georgia, serif; font-size: 15pt; font-weight: 500; color: rgba(255,255,255,0.82); letter-spacing: 0.06em; margin: 3mm 0 0; text-shadow: 0 2px 8px rgba(0,0,0,0.90), 0 4px 20px rgba(0,0,0,0.70); }
+/* .cover-divider: espaçador invisível que empurra conteúdo para o rodapé */
+.cover-divider { width: 32mm; height: 1px; background: transparent; margin: auto; margin-top: auto; }
+.subtitle { font-size: 13pt; line-height: 1.65; color: rgba(255,255,255,0.84); max-width: 145mm; margin-top: 5mm; text-align: center; }
+.cover-icon { margin-top: 7mm; opacity: 0.80; }
+
+/* ─── PRINT ──────────────────────────────────────────────────────────── */
+@media print {
+  html, body { background: #fff; }
+  .page { margin: 0; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     CAPA (page-1)
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-1" class="page cover">
+  <p class="cover-pre">[PRE_TITULO]</p>
+  <h1>[TITULO]</h1>
+  <p class="cover-post">[POS_TITULO]</p>
+  <div class="cover-divider"></div>
+  <!-- linha divisória vermelha opcional abaixo do divider: -->
+  <!-- <div style="width:40mm;height:3px;background:var(--accent);border-radius:2px;margin:0 auto 5mm;"></div> -->
+  <p class="subtitle">[SUBTITULO]</p>
+  <div class="cover-icon">
+    <!-- ícone SVG inline ou <img src="images/icon-cover.svg"> -->
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     APRESENTAÇÃO (page-2)
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-2" class="page">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+  <div class="kicker">Apresentação</div>
+  <h1>Para quem é esta apostila</h1>
+  <p>[Para quem foi criada, qual problema resolve, o que o leitor vai aprender.]</p>
+  <h2>Como usar este material</h2>
+  <p>[Orientações de uso: leitura linear, atividades, boxes, etc.]</p>
+  <h2>O que você vai encontrar</h2>
+  <div class="roadmap">
+    <!-- repetir para cada capítulo -->
+    <div><b>1</b><span>Título do Capítulo 1</span><small class="roadmap-desc">Descrição breve</small></div>
+    <div><b>2</b><span>Título do Capítulo 2</span><small class="roadmap-desc">Descrição breve</small></div>
+  </div>
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>2</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     LEGENDA DE BOXES (page-3)
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-3" class="page">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+  <div class="kicker">Como ler esta apostila</div>
+  <h1>Legenda dos elementos visuais</h1>
+  <aside class="box alert"><strong>📌 Atenção</strong><p>Erros críticos a evitar ou regras fundamentais.</p></aside>
+  <aside class="box tip"><strong>💡 Dica Prática</strong><p>Aplicação imediata que você pode usar hoje.</p></aside>
+  <aside class="box more"><strong>🔍 Saiba Mais</strong><p>Aprofundamento opcional para quem quer ir além.</p></aside>
+  <aside class="box reflect"><strong>📝 Para Refletir</strong><p>Questão para você pausar e pensar sobre o tema.</p></aside>
+  <aside class="box best"><strong>✅ Boas Práticas</strong><p>Recomendações diretas validadas na prática.</p></aside>
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>3</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SUMÁRIO (page-4)
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-4" class="page">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+  <div class="kicker">Sumário</div>
+  <h1>Conteúdo</h1>
+  <div class="toc">
+    <!-- Capítulos -->
+    <div class="toc-item"><strong>1. Título do Capítulo 1</strong><em>p. 5</em></div>
+    <div class="toc-item"><strong>2. Título do Capítulo 2</strong><em>p. 15</em></div>
+    <!-- ... -->
+    <!-- Pós-textuais -->
+    <div class="toc end">
+      <div class="toc-item"><strong>Gabarito</strong><em>p. 90</em></div>
+      <div class="toc-item"><strong>Glossário</strong><em>p. 95</em></div>
+      <div class="toc-item"><strong>Referências</strong><em>p. 100</em></div>
+    </div>
+  </div>
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>4</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     ABERTURA DE CAPÍTULO (page-N · class="page chapter-open")
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-5" class="page chapter-open">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+  <div class="kicker">Capítulo [CAP_N] | [CAP_CATEGORIA]</div>
+  <h1>[CAP_TITULO]</h1>
+
+  <!-- Epígrafe ou pergunta provocadora -->
+  <blockquote>[Pergunta provocadora ou citação que abre o capítulo.]</blockquote>
+
+  <!-- Objetivos de aprendizagem (verbos adequados ao nível cognitivo — caps iniciais: identificar/descrever; caps finais: avaliar/criar) -->
+  <h2>O que você vai aprender</h2>
+  <ul>
+    <li>Ao final deste capítulo, você será capaz de [verbo + conteúdo].</li>
+    <li>Ao final deste capítulo, você será capaz de [verbo + conteúdo].</li>
+    <li>Ao final deste capítulo, você será capaz de [verbo + conteúdo].</li>
+  </ul>
+
+  <!-- Conexão com capítulo anterior (omitir no cap. 1) -->
+  <p><em>No capítulo anterior, vimos [resumo]. Agora vamos avançar para [tema deste capítulo].</em></p>
+
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>5</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     PÁGINA DE CONTEÚDO PADRÃO (page-N · class="page")
+     Adicionar class="dense" quando o conteúdo for extenso.
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-6" class="page">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+
+  <!-- Conceito central -->
+  <h2>Conceito central</h2>
+  <p>[Teoria mínima necessária. Todo termo técnico é definido na primeira ocorrência.]</p>
+
+  <!-- Exemplo real (mínimo 2 por capítulo) -->
+  <div class="example">
+    <strong>Exemplo</strong>
+    <p>[Situação real, contextualizada para o público. Nunca genérico.]</p>
+  </div>
+
+  <!-- Box: mínimo 3 por capítulo, variando tipos -->
+  <aside class="box tip"><strong>💡 DICA PRÁTICA</strong><p>[Ação imediata que o leitor pode aplicar.]</p></aside>
+
+  <!-- Passo a passo -->
+  <h2>Como fazer na prática</h2>
+  <div class="step"><b>1</b><p>[Descrição do passo 1.]</p></div>
+  <div class="step"><b>2</b><p>[Descrição do passo 2.]</p></div>
+  <div class="step"><b>3</b><p>[Descrição do passo 3.]</p></div>
+
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>6</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     PÁGINA COM OUTROS TIPOS DE BOX E ELEMENTOS
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-7" class="page">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+
+  <h2>Tópico complementar</h2>
+  <p>[Desenvolvimento do tópico.]</p>
+
+  <aside class="box alert"><strong>📌 ATENÇÃO</strong><p>[Erro crítico ou regra que não pode ser ignorada.]</p></aside>
+  <aside class="box more"><strong>🔍 SAIBA MAIS</strong><p>[Aprofundamento opcional com referência ou contexto extra.]</p></aside>
+  <aside class="box reflect"><strong>📝 PARA REFLETIR</strong><p>[Questão que convida o leitor a pausar e pensar.]</p></aside>
+  <aside class="box best"><strong>✅ BOAS PRÁTICAS</strong><ul><li>[Prática 1]</li><li>[Prática 2]</li><li>[Prática 3]</li></ul></aside>
+
+  <!-- Script de vendas (quando o capítulo incluir scripts de atendimento) -->
+  <div class="script">
+    <h2>Script: [nome do contexto]</h2>
+    <p>"[Texto do script com [VARIÁVEL] para personalização.]"</p>
+    <p class="customize">Personalize: [instrução de personalização]</p>
+  </div>
+
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>7</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     ESTUDO DE CASO (class="page" com .case)
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-8" class="page">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+
+  <h2>Estudo de caso</h2>
+  <div class="case">
+    <h3>Contexto</h3>
+    <p>[Descrição do cenário real ou verossímil — empresa, setor, desafio.]</p>
+    <h3>Problema</h3>
+    <p>[O que estava errado ou precisava melhorar.]</p>
+    <h3>Análise</h3>
+    <p>[Como o problema foi diagnosticado, quais fatores estavam em jogo.]</p>
+    <h3>Solução</h3>
+    <p>[O que foi feito, passo a passo ou decisão principal.]</p>
+    <h3>Resultado</h3>
+    <p>[Resultado concreto: número, comparação antes/depois ou mudança qualitativa.]</p>
+  </div>
+
+  <p class="intro">Reflita sobre o estudo de caso e responda:</p>
+  <ol>
+    <li>[Questão analítica sobre o caso — usa verbos do nível cognitivo do capítulo.]</li>
+    <li>[Questão de aplicação — o leitor transfere para sua realidade.]</li>
+    <li>[Questão síntese — conecta ao restante do capítulo.]</li>
+  </ol>
+
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>8</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     ATIVIDADE DE FIXAÇÃO + SÍNTESE + REFERÊNCIAS
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-9" class="page">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+
+  <!-- Atividade (verbo alinhado ao nível cognitivo do capítulo) -->
+  <h2>Atividade de fixação</h2>
+  <div class="activity">
+    <p>[Enunciado da atividade — caps iniciais: identifique/descreva; caps finais: avalie/proponha.]</p>
+    <div class="write-line"><span></span></div>
+    <div class="write-line"><span></span></div>
+    <div class="write-line"><span></span></div>
+  </div>
+
+  <!-- Síntese -->
+  <h2>Síntese do capítulo</h2>
+  <ul class="summary checks">
+    <li>[Ponto-chave 1]</li>
+    <li>[Ponto-chave 2]</li>
+    <li>[Ponto-chave 3]</li>
+    <li>[Ponto-chave 4]</li>
+    <li>[Ponto-chave 5]</li>
+  </ul>
+
+  <!-- Gancho para o próximo capítulo (omitir no último capítulo) -->
+  <p><em>No próximo capítulo, você vai aprender [tema do próximo capítulo].</em></p>
+
+  <!-- Referências do capítulo -->
+  <h2>Referências</h2>
+  <ul class="sources">
+    <li>[SOBRENOME, Nome. <em>Título</em>. Editora, Ano.]</li>
+    <li>[Referência 2]</li>
+    <li>[Referência 3]</li>
+  </ul>
+
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>9</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     GABARITO COMENTADO (pós-textual)
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-gabarito" class="page">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+  <div class="kicker">Pós-textual</div>
+  <h1>Gabarito Comentado</h1>
+
+  <div class="answer">
+    <h2>Capítulo 1 — [Título]</h2>
+    <p><strong>Atividade:</strong> [enunciado resumido]</p>
+    <p><strong>Resposta esperada:</strong> [resposta com justificativa pedagógica]</p>
+  </div>
+  <!-- repetir .answer para cada capítulo -->
+
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>90</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     GLOSSÁRIO (pós-textual · mínimo 30 termos)
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-glossario" class="page dense">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+  <div class="kicker">Pós-textual</div>
+  <h1>Glossário</h1>
+  <table>
+    <thead><tr><th>Termo</th><th>Definição</th></tr></thead>
+    <tbody>
+      <tr><td>[Termo A]</td><td>[Definição clara e objetiva.]</td></tr>
+      <tr><td>[Termo B]</td><td>[Definição clara e objetiva.]</td></tr>
+      <!-- mínimo 30 termos -->
+    </tbody>
+  </table>
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>95</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     REFERÊNCIAS BIBLIOGRÁFICAS (pós-textual · ordem alfabética)
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-referencias" class="page">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+  <div class="kicker">Pós-textual</div>
+  <h1>Referências Bibliográficas</h1>
+  <ul class="bibliography">
+    <li>[SOBRENOME, Nome. <em>Título</em>. Cidade: Editora, Ano.]</li>
+    <!-- ordem alfabética por sobrenome -->
+  </ul>
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>100</span></footer>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     CONTRACAPA (última página)
+     ════════════════════════════════════════════════════════════════════ -->
+<section id="page-contracapa" class="page back-cover">
+  <header class="page-header"><span>[TEMA_COMPLETO]</span></header>
+  <div class="kicker">[CAP_CATEGORIA ou tagline]</div>
+  <h1>[Frase de encerramento impactante]</h1>
+  <p class="back-copy">[Texto de 2-3 linhas resumindo a transformação que o leitor viveu.]</p>
+  <div class="back-card">
+    <strong style="font-size:9pt;letter-spacing:.07em;text-transform:uppercase;color:var(--primary-light)">Sobre este material</strong>
+    <p>[Informação institucional ou sobre a série de apostilas.]</p>
+  </div>
+  <footer class="page-footer"><span>[TEMA_COMPLETO]</span><span>108</span></footer>
+</section>
+
+</body>
+</html>
