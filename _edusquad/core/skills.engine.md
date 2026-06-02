@@ -106,6 +106,8 @@ Durante criação de squad, analise as necessidades e sugira skills relevantes:
    - SCORM → `scorm-builder`, `instructional-design`
    - Quiz → `quiz-builder`, `assessment-design`
    - Apresentação → `canva`, `slide-design`
+   - Apostila → `criar-apostila`, `criar-imagem-leonardo`, `instructional-design`
+   - Ebook, isca digital ou lead magnet → `criar-ebook`, `criar-imagem-leonardo`, `copywriting`
    - Imagem, capa ou thumbnail → `criar-imagem-leonardo`, `accessibility`
    - BNCC → `bncc`, `bloom`
    - Corporativo → `rh-training`, `instructional-design`

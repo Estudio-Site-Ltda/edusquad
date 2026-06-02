@@ -7,15 +7,18 @@
 Use quando quiser gerar a apostila completa de uma vez, sem etapas intermediárias.
 
 ```
-@skills/criar-apostila
+/goal @skills/criar-apostila em passo único para:
 
-TEMA: Gestão da qualidade para QUALIDADE E PROCESSOS
-PUBLICO_ALVO: Profissionais de qualidade, processos, operações e liderança que precisam padronizar atividades, melhorar indicadores, reduzir falhas e fortalecer a cultura de melhoria contínua na organização.
+TEMA: Fundamentos de Administração para Pequenos Negócios
+OBJETIVO: Ensinar os princípios essenciais para organizar e gerir uma pequena empresa.
+PUBLICO_ALVO: Empreendedores, MEIs e donos de pequenos negócios.
 NIVEL: Básico ao Intermediário
 NUMERO_CAPITULOS: 10
-CARGA_HORARIA: 20h
+CARGA_HORARIA: 8h
 TOM_VOZ: Direto, prático e motivacional — sem jargões acadêmicos
 DIFERENCIAIS: Foco em situações reais do dia a dia do profissional, com ferramentas aplicáveis imediatamente
+
+Crie capitulo por capitulo, o conteúdo nunca deve exceder o limite da página, respeitando sempre o limite de impressão, analise, ajuste e aprove antes via playwriting-cli antes de seguir para o proximo capitulo.
 ```
 
 **O que será gerado:**
@@ -38,7 +41,7 @@ TEMA: Vendas Consultivas B2B
 PUBLICO_ALVO: Vendedores externos com experiência em vendas transacionais que estão migrando para o modelo consultivo
 NIVEL: Intermediário
 NUMERO_CAPITULOS: 15
-CARGA_HORARIA: 30h
+CARGA_HORARIA: 16h
 TOM_VOZ: Consultivo, respeitoso e orientado a resultados — sem pressão ou linguagem de "fechamento a qualquer custo"
 DIFERENCIAIS: Metodologia SPIN Selling adaptada para o mercado brasileiro
 ```
